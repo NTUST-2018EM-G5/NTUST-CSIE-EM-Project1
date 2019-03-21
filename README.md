@@ -23,8 +23,8 @@ V
 
 ## 測試檔案
 在TestData資料夾中有Vector和Matrix計算測資
-Vector包含V1~V16個運算數值，運算題目與答案請看”解答.txt”
-Matrix包含M1~M12個運算數值，運算題目與答案請看”解答.txt”
+Vector包含V1~V16個運算數值，運算題目與答案請看"解答.txt"
+Matrix包含M1~M12個運算數值，運算題目與答案請看"解答.txt"
 欲確認對於大維度的測資的正確性，可使用Notepad++的文件比對工具，詳參考下列網站
 http://www.moonlit.me/%E9%96%8B%E5%95%9Fnotepad%E6%96%87%E4%BB%B6%E6%AF%94%E5%B0%8D%E5%B7%A5%E5%85%B7-346.html
 
