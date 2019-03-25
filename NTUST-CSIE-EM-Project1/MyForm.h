@@ -308,7 +308,7 @@ namespace NTUSTCSIEEMProject1 {
 	{
 		//當Input textbox中的輸入改變時，便會進入此函式
 		//取得向量資料
-		std::vector<Vector> vectors = dataManager->GetVectors();
+		std::vector<MyVector> vectors = dataManager->GetVectors();
 		//判斷輸入自元為'\n'，並防止取到字串-1位置
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
@@ -372,7 +372,7 @@ namespace NTUSTCSIEEMProject1 {
 			//將VectorList中項目先做清除
 			VectorList->Items->Clear();
 			//取得所有向量資料
-			std::vector<Vector> vectors = dataManager->GetVectors();
+			std::vector<MyVector> vectors = dataManager->GetVectors();
 
 			for (unsigned int i = 0; i < vectors.size(); i++)
 			{

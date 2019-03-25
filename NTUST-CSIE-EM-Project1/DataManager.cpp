@@ -37,7 +37,7 @@ bool DataManager::LoadVectorData()
 				if (currentLoadVectorID != 0)
 				{
 					//定義暫存向量資料結構
-					Vector tempVector;
+					MyVector tempVector;
 					//存入向量資料
 					tempVector.Data = tempVectorData;
 					//定義向量變數名稱，依VectorVariableIndex變數作名稱的控管
@@ -67,7 +67,7 @@ bool DataManager::LoadVectorData()
 
 		}
 		//讀入輸入檔案中最後一個向量資訊
-		Vector tempVector;
+		MyVector tempVector;
 		tempVector.Data = tempVectorData;
 		std::string vectorVariableTemp = "$v" + std::to_string(VectorVariableIndex);
 		tempVector.Name = vectorVariableTemp;
@@ -78,7 +78,7 @@ bool DataManager::LoadVectorData()
 	}
 }
 
-std::vector<Vector> DataManager::GetVectors()
+std::vector<MyVector> DataManager::GetVectors()
 {
 	return Vectors;
 }
