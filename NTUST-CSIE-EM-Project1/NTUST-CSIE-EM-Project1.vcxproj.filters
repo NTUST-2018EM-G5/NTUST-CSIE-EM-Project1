@@ -24,6 +24,9 @@
     <ClCompile Include="DotNetUitilities.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="MyVector.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -35,5 +38,13 @@
     <ClInclude Include="DotNetUitilities.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="MyVector.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyForm.resx">
+      <Filter>資源檔</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
