@@ -215,7 +215,7 @@ namespace NTUSTCSIEEMProject1 {
 				 // 
 				 this->toolStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->toolStrip1->ImageScalingSize = System::Drawing::Size(24, 24);
-				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				 this->toolStrip1->Items->AddRange(gcnew array< System::Windows::Forms::ToolStripItem^  >(3) {
 					 this->btnLoad, this->btnClear,
 						 this->btnHint
 				 });
@@ -313,7 +313,7 @@ namespace NTUSTCSIEEMProject1 {
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
 			//將使用者輸入字串(在userInput中)，依空白作切割
-			cli::array<String^> ^userCommand = userInput->Split(' ');
+			array<String^> ^userCommand = userInput->Split(' ');
 			//字串比較，若指令為"print"的情況
 			if (userCommand[0] == "print")
 			{
@@ -352,7 +352,7 @@ namespace NTUSTCSIEEMProject1 {
 		else
 		{
 			//將使用者輸入字串(在Text box中)，依'\n'作切割
-			cli::array<String^> ^userCommand = Input->Text->Split('\n');
+			array<String^> ^userCommand = Input->Text->Split('\n');
 			//並將最後一行，作為目前使用者輸入指令
 			userInput = userCommand[userCommand->Length - 1];
 		}
