@@ -3,7 +3,7 @@
 #include"DotNetUitilities.h"
 
 namespace NTUSTCSIEEMProject1 {
-
+	using namespace cli;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -313,7 +313,7 @@ namespace NTUSTCSIEEMProject1 {
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
 			//將使用者輸入字串(在userInput中)，依空白作切割
-			array<String^> ^userCommand = userInput->Split(' ');
+			cli::array<String^> ^userCommand = userInput->Split(' ');
 			//字串比較，若指令為"print"的情況
 			if (userCommand[0] == "print")
 			{
@@ -352,7 +352,7 @@ namespace NTUSTCSIEEMProject1 {
 		else
 		{
 			//將使用者輸入字串(在Text box中)，依'\n'作切割
-			array<String^> ^userCommand = Input->Text->Split('\n');
+			cli::array<String^> ^userCommand = Input->Text->Split('\n');
 			//並將最後一行，作為目前使用者輸入指令
 			userInput = userCommand[userCommand->Length - 1];
 		}
