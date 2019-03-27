@@ -39,11 +39,11 @@ bool DataManager::LoadVectorData()
 					//定義暫存向量資料結構
 					MyVector tempVector;
 					//存入向量資料
-					tempVector.Data = tempVectorData;
+					tempVector.SetData(tempVectorData);
 					//定義向量變數名稱，依VectorVariableIndex變數作名稱的控管
-					std::string vectorVariableTemp = "$v" + std::to_string(VectorVariableIndex);
+					std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
 					//存入向量變數名稱
-					tempVector.Name = vectorVariableTemp;
+					tempVector.SetName(vectorVariableTemp);
 					//存入向量
 					Vectors.push_back(tempVector);
 					//遞增VectorVariableIndex，以確保變數名稱不重複
@@ -68,9 +68,9 @@ bool DataManager::LoadVectorData()
 		}
 		//讀入輸入檔案中最後一個向量資訊
 		MyVector tempVector;
-		tempVector.Data = tempVectorData;
-		std::string vectorVariableTemp = "$v" + std::to_string(VectorVariableIndex);
-		tempVector.Name = vectorVariableTemp;
+		tempVector.SetData(tempVectorData);
+		std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
+		tempVector.SetName(vectorVariableTemp);
 		Vectors.push_back(tempVector);
 		VectorVariableIndex++;
 		//讀取成功回傳false
@@ -82,6 +82,7 @@ std::vector<MyVector> DataManager::GetVectors()
 {
 	return Vectors;
 }
+
 void DataManager::SetFileName(std::string fileName)
 {
 	FileName = fileName;

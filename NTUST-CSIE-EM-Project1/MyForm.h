@@ -87,10 +87,12 @@ namespace NTUSTCSIEEMProject1 {
 	private: System::Windows::Forms::TextBox^  Output;
 	private: System::Windows::Forms::Label^  OutputLabel;
 	private: System::Windows::Forms::ToolStrip^  toolStrip1;
-	private: System::Windows::Forms::ToolStripButton^  btnLoad;
+	private: System::Windows::Forms::ToolStripButton^  btnLoadVector;
+
 	private: System::Windows::Forms::ToolStripButton^  btnHint;
 	private: System::Windows::Forms::ToolStripButton^  btnClear;
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
+	private: System::Windows::Forms::ToolStripButton^  btnLoadMatrix;
 
 
 
@@ -128,10 +130,11 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Output = (gcnew System::Windows::Forms::TextBox());
 				 this->OutputLabel = (gcnew System::Windows::Forms::Label());
 				 this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
-				 this->btnLoad = (gcnew System::Windows::Forms::ToolStripButton());
-				 this->btnHint = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnLoadVector = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnClear = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnHint = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+				 this->btnLoadMatrix = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->toolStrip1->SuspendLayout();
 				 this->tableLayoutPanel1->SuspendLayout();
 				 this->SuspendLayout();
@@ -215,9 +218,9 @@ namespace NTUSTCSIEEMProject1 {
 				 // 
 				 this->toolStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->toolStrip1->ImageScalingSize = System::Drawing::Size(24, 24);
-				 this->toolStrip1->Items->AddRange(gcnew array< System::Windows::Forms::ToolStripItem^  >(3) {
-					 this->btnLoad, this->btnClear,
-						 this->btnHint
+				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+					 this->btnLoadVector, this->btnLoadMatrix,
+						 this->btnClear, this->btnHint
 				 });
 				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
 				 this->toolStrip1->Name = L"toolStrip1";
@@ -225,22 +228,14 @@ namespace NTUSTCSIEEMProject1 {
 				 this->toolStrip1->TabIndex = 5;
 				 this->toolStrip1->Text = L"toolStrip1";
 				 // 
-				 // btnLoad
+				 // btnLoadVector
 				 // 
-				 this->btnLoad->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoad.Image")));
-				 this->btnLoad->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->btnLoad->Name = L"btnLoad";
-				 this->btnLoad->Size = System::Drawing::Size(79, 42);
-				 this->btnLoad->Text = L"Load";
-				 this->btnLoad->Click += gcnew System::EventHandler(this, &MyForm::btnLoad_Click);
-				 // 
-				 // btnHint
-				 // 
-				 this->btnHint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnHint.Image")));
-				 this->btnHint->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->btnHint->Name = L"btnHint";
-				 this->btnHint->Size = System::Drawing::Size(75, 42);
-				 this->btnHint->Text = L"Hint";
+				 this->btnLoadVector->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadVector.Image")));
+				 this->btnLoadVector->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnLoadVector->Name = L"btnLoadVector";
+				 this->btnLoadVector->Size = System::Drawing::Size(135, 42);
+				 this->btnLoadVector->Text = L"LoadVector";
+				 this->btnLoadVector->Click += gcnew System::EventHandler(this, &MyForm::btnLoadVector_Click);
 				 // 
 				 // btnClear
 				 // 
@@ -249,6 +244,14 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnClear->Name = L"btnClear";
 				 this->btnClear->Size = System::Drawing::Size(82, 42);
 				 this->btnClear->Text = L"Clear";
+				 // 
+				 // btnHint
+				 // 
+				 this->btnHint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnHint.Image")));
+				 this->btnHint->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnHint->Name = L"btnHint";
+				 this->btnHint->Size = System::Drawing::Size(75, 42);
+				 this->btnHint->Text = L"Hint";
 				 // 
 				 // tableLayoutPanel1
 				 // 
@@ -277,6 +280,15 @@ namespace NTUSTCSIEEMProject1 {
 				 this->tableLayoutPanel1->Size = System::Drawing::Size(1178, 835);
 				 this->tableLayoutPanel1->TabIndex = 2;
 				 // 
+				 // btnLoadMatrix
+				 // 
+				 this->btnLoadMatrix->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadMatrix.Image")));
+				 this->btnLoadMatrix->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnLoadMatrix->Name = L"btnLoadMatrix";
+				 this->btnLoadMatrix->Size = System::Drawing::Size(134, 42);
+				 this->btnLoadMatrix->Text = L"LoadMatrix";
+				 this->btnLoadMatrix->ToolTipText = L"LoadMatrix";
+				 // 
 				 // MyForm
 				 // 
 				 this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
@@ -297,9 +309,10 @@ namespace NTUSTCSIEEMProject1 {
 			 }
 #pragma endregion
 
-	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) 
+	{
 	}
-	private: System::Void btnLoad_Click(System::Object^  sender, System::EventArgs^  e)
+	private: System::Void btnLoadVector_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		//開啟Dialog
 		openFileDialog1->ShowDialog();
@@ -323,21 +336,21 @@ namespace NTUSTCSIEEMProject1 {
 				for (unsigned int i = 0; i < vectors.size(); i++)
 				{
 					//若變數名稱與指令變數名稱符合
-					if (userCommand[1] == gcnew String(vectors[i].Name.c_str()))
+					if (userCommand[1] == gcnew String(vectors[i].GetName().c_str()))
 					{
 						//將輸出格式存入暫存
 						outputTemp += "[";
 						//將輸出資料存入暫存
-						for (unsigned int j = 0; j < vectors[i].Data.size(); j++)
+						for (unsigned int j = 0; j < vectors[i].GetData().size(); j++)
 						{
-							outputTemp += vectors[i].Data[j].ToString();
-							if (j != vectors[i].Data.size() - 1)
+							outputTemp += vectors[i].GetData().at(j).ToString();
+							if (j != vectors[i].GetData().size() - 1)
 								outputTemp += ",";
 						}
 						//將輸出格式存入暫存，並且換行
 						outputTemp += "]" + Environment::NewLine;
 						//輸出暫存資訊
-						Output->Text += gcnew String(vectors[i].Name.c_str()) + " = " + outputTemp;
+						Output->Text += gcnew String(vectors[i].GetName().c_str()) + " = " + outputTemp;
 						break;
 					}
 				}
@@ -377,15 +390,15 @@ namespace NTUSTCSIEEMProject1 {
 			for (unsigned int i = 0; i < vectors.size(); i++)
 			{
 				//將檔案名稱存入暫存
-				std::string tempString = vectors[i].Name;
+				std::string tempString = vectors[i].GetName();
 				//將輸出格式存入暫存
 				tempString += " [";
 				//將輸出資料存入暫存
-				for (unsigned int j = 0; j < vectors[i].Data.size(); j++)
+				for (unsigned int j = 0; j < vectors[i].GetData().size(); j++)
 				{
-					std::string scalarString = std::to_string(vectors[i].Data[j]);
+					std::string scalarString = std::to_string(vectors[i].GetData().at(j));
 					tempString += scalarString.substr(0, scalarString.size() - 5);
-					if (j != vectors[i].Data.size() - 1)
+					if (j != vectors[i].GetData().size() - 1)
 						tempString += ",";
 				}
 				//將輸出格式存入暫存
