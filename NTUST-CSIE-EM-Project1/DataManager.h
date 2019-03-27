@@ -4,12 +4,9 @@
 #include<fstream>
 #include<string>
 #include"MyVector.h"
-//定義向量資料結構
-//struct Vector
-//{
-//	std::string Name;
-//	std::vector<double> Data;
-//};
+
+using namespace std;
+using namespace System;
 //定義控管資料class
 class DataManager
 {
@@ -21,6 +18,11 @@ public:
 	std::vector<MyVector> GetVectors();
 	//設置檔案路徑名稱
 	void SetFileName(std::string fileName);
+	//清空資料
+	void Clear();
+	//輸入指令，回傳結果
+	System::String^ CommandEvent(System::String^);
+
 
 private:
 	//儲存向量資料

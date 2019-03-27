@@ -10,6 +10,7 @@ namespace NTUSTCSIEEMProject1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	
 
 	/// <summary>
 	/// MyForm 的摘要
@@ -131,10 +132,10 @@ namespace NTUSTCSIEEMProject1 {
 				 this->OutputLabel = (gcnew System::Windows::Forms::Label());
 				 this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 				 this->btnLoadVector = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnLoadMatrix = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnClear = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnHint = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
-				 this->btnLoadMatrix = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->toolStrip1->SuspendLayout();
 				 this->tableLayoutPanel1->SuspendLayout();
 				 this->SuspendLayout();
@@ -153,6 +154,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Input->Name = L"Input";
 				 this->Input->Size = System::Drawing::Size(1170, 231);
 				 this->Input->TabIndex = 10;
+				 this->Input->TextChanged += gcnew System::EventHandler(this, &MyForm::Input_TextChanged);
 				 // 
 				 // InputLabel
 				 // 
@@ -237,6 +239,15 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnLoadVector->Text = L"LoadVector";
 				 this->btnLoadVector->Click += gcnew System::EventHandler(this, &MyForm::btnLoadVector_Click);
 				 // 
+				 // btnLoadMatrix
+				 // 
+				 this->btnLoadMatrix->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadMatrix.Image")));
+				 this->btnLoadMatrix->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnLoadMatrix->Name = L"btnLoadMatrix";
+				 this->btnLoadMatrix->Size = System::Drawing::Size(134, 42);
+				 this->btnLoadMatrix->Text = L"LoadMatrix";
+				 this->btnLoadMatrix->ToolTipText = L"LoadMatrix";
+				 // 
 				 // btnClear
 				 // 
 				 this->btnClear->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClear.Image")));
@@ -280,15 +291,6 @@ namespace NTUSTCSIEEMProject1 {
 				 this->tableLayoutPanel1->Size = System::Drawing::Size(1178, 835);
 				 this->tableLayoutPanel1->TabIndex = 2;
 				 // 
-				 // btnLoadMatrix
-				 // 
-				 this->btnLoadMatrix->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadMatrix.Image")));
-				 this->btnLoadMatrix->ImageTransparentColor = System::Drawing::Color::Magenta;
-				 this->btnLoadMatrix->Name = L"btnLoadMatrix";
-				 this->btnLoadMatrix->Size = System::Drawing::Size(134, 42);
-				 this->btnLoadMatrix->Text = L"LoadMatrix";
-				 this->btnLoadMatrix->ToolTipText = L"LoadMatrix";
-				 // 
 				 // MyForm
 				 // 
 				 this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
@@ -319,53 +321,20 @@ namespace NTUSTCSIEEMProject1 {
 	}
 	private: System::Void Input_TextChanged(System::Object^  sender, System::EventArgs^  e)
 	{
+		
 		//當Input textbox中的輸入改變時，便會進入此函式
 		//取得向量資料
 		std::vector<MyVector> vectors = dataManager->GetVectors();
 		//判斷輸入自元為'\n'，並防止取到字串-1位置
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
-			//將使用者輸入字串(在userInput中)，依空白作切割
-			array<String^> ^userCommand = userInput->Split(' ');
-			//字串比較，若指令為"print"的情況
-			if (userCommand[0] == "print")
-			{
-				//定意輸出暫存
-				String^ outputTemp = "";
-				//透過for迴圈，從向量資料中找出對應變數
-				for (unsigned int i = 0; i < vectors.size(); i++)
-				{
-					//若變數名稱與指令變數名稱符合
-					if (userCommand[1] == gcnew String(vectors[i].GetName().c_str()))
-					{
-						//將輸出格式存入暫存
-						outputTemp += "[";
-						//將輸出資料存入暫存
-						for (unsigned int j = 0; j < vectors[i].GetData().size(); j++)
-						{
-							outputTemp += vectors[i].GetData().at(j).ToString();
-							if (j != vectors[i].GetData().size() - 1)
-								outputTemp += ",";
-						}
-						//將輸出格式存入暫存，並且換行
-						outputTemp += "]" + Environment::NewLine;
-						//輸出暫存資訊
-						Output->Text += gcnew String(vectors[i].GetName().c_str()) + " = " + outputTemp;
-						break;
-					}
-				}
-			}
-			//反之則判斷找不到指令
-			else
-			{
-				Output->Text += "-Command not found-" + Environment::NewLine;
-			}
-			userInput = "";
+			dataManager->CommandEvent(userInput);
+			Output->Text += dataManager->CommandEvent(userInput) + Environment::NewLine;
 		}
 		else
 		{
 			//將使用者輸入字串(在Text box中)，依'\n'作切割
-			array<String^> ^userCommand = Input->Text->Split('\n');
+			cli::array<String^> ^userCommand = Input->Text->Split('\n');
 			//並將最後一行，作為目前使用者輸入指令
 			userInput = userCommand[userCommand->Length - 1];
 		}

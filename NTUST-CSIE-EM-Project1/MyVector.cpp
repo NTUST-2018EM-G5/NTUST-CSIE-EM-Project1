@@ -6,12 +6,12 @@ MyVector::MyVector()
 {
 }
 
-std::vector<double> MyVector::GetData()
+std::vector<long double> MyVector::GetData()
 {
 	return this->Data;
 }
 
-void MyVector::SetData(std::vector<double> data)
+void MyVector::SetData(std::vector<long double> data)
 {
 	this->Data = data;
 }
@@ -26,7 +26,7 @@ void MyVector::SetName(std::string name)
 	this->Name = name;
 }
 
-void MyVector::InsertValue(double value)
+void MyVector::InsertValue(long double value)
 {
 	this->Data.push_back(value);
 }
@@ -110,7 +110,7 @@ MyVector MyVector::operator/(const MyVector& b)
 	}
 }
 
-double& MyVector::operator[] (const int index)
+long double& MyVector::operator[] (const int index)
 {
 	return this->Data.at(index);
 }

@@ -20,7 +20,7 @@ bool DataManager::LoadVectorData()
 		//標記當前讀取向量ID
 		int currentLoadVectorID = 0;
 		//定義向量資料暫存變數
-		std::vector<double> tempVectorData;
+		std::vector<long double> tempVectorData;
 		//定義讀取檔案字串暫存變數
 		std::string tempSring;
 		//從檔案讀取字串，解析掉向量總數
@@ -59,8 +59,8 @@ bool DataManager::LoadVectorData()
 			else
 			{
 				//讀取向量資料，並將string轉為double
-				double value;
-				value = (double)strtod(tempSring.c_str(), NULL);
+				long double value;
+				value = (long double)strtod(tempSring.c_str(), NULL);
 				//將向量資料存入暫存
 				tempVectorData.push_back(value);
 			}
@@ -86,5 +86,58 @@ std::vector<MyVector> DataManager::GetVectors()
 void DataManager::SetFileName(std::string fileName)
 {
 	FileName = fileName;
+}
+
+void DataManager::Clear()
+{
+	this->FileName = "";
+	this->Vectors.clear();
+	this->VectorVariableIndex = 0;
+}
+
+System::String^ DataManager::CommandEvent(System::String^ command)
+{
+	System::String^ result;
+
+	//將使用者輸入字串(在userInput中)，依空白作切割
+	cli::array<System::String^> ^userCommand = command->Split(' ');
+	//字串比較，若指令為"print"的情況
+	if (userCommand[0] == "print")
+	{
+		//定義輸出暫存
+		String^ outputTemp = "";
+		//透過for迴圈，從向量資料中找出對應變數
+		for (unsigned int i = 0; i < this->Vectors.size(); i++)
+		{
+			//若變數名稱與指令變數名稱符合
+			if (userCommand[1] == gcnew String(this->Vectors[i].GetName().c_str()))
+			{
+				//將輸出格式存入暫存
+				outputTemp += "[";
+				//將輸出資料存入暫存
+				for (unsigned int j = 0; j < this->Vectors[i].GetData().size(); j++)
+				{
+					outputTemp += this->Vectors[i].GetData().at(j).ToString();
+					if (j != this->Vectors[i].GetData().size() - 1)
+						outputTemp += ",";
+				}
+				//將輸出格式存入暫存，並且換行
+				outputTemp += "]" + Environment::NewLine;
+				//輸出暫存資訊
+				result += gcnew String(this->Vectors[i].GetName().c_str()) + " = " + outputTemp;
+				break;
+			}
+		}
+	}
+	else if (userCommand[0] == "dot")
+	{
+		
+	}
+	//反之則判斷找不到指令
+	else
+	{
+		result = "-Command not found-" + Environment::NewLine;
+	}
+	return result;
 }
 
