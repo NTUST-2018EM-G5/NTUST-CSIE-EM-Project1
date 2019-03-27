@@ -23,7 +23,6 @@ public:
 	//輸入指令，回傳結果
 	System::String^ CommandEvent(System::String^);
 
-
 private:
 	//儲存向量資料
 	std::vector<MyVector> Vectors;

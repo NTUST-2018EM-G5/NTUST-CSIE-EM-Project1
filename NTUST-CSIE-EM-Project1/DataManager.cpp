@@ -101,43 +101,52 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 
 	//將使用者輸入字串(在userInput中)，依空白作切割
 	cli::array<System::String^> ^userCommand = command->Split(' ');
-	//字串比較，若指令為"print"的情況
-	if (userCommand[0] == "print")
+	try
 	{
-		//定義輸出暫存
-		String^ outputTemp = "";
-		//透過for迴圈，從向量資料中找出對應變數
-		for (unsigned int i = 0; i < this->Vectors.size(); i++)
+		//字串比較，若指令為"print"的情況
+		if (userCommand[0] == "print")
 		{
-			//若變數名稱與指令變數名稱符合
-			if (userCommand[1] == gcnew String(this->Vectors[i].GetName().c_str()))
+			//定義輸出暫存
+			String^ outputTemp = "";
+			//透過for迴圈，從向量資料中找出對應變數
+			for (unsigned int i = 0; i < this->Vectors.size(); i++)
 			{
-				//將輸出格式存入暫存
-				outputTemp += "[";
-				//將輸出資料存入暫存
-				for (unsigned int j = 0; j < this->Vectors[i].GetData().size(); j++)
+				//若變數名稱與指令變數名稱符合
+				if (userCommand[1] == gcnew String(this->Vectors[i].GetName().c_str()))
 				{
-					outputTemp += this->Vectors[i].GetData().at(j).ToString();
-					if (j != this->Vectors[i].GetData().size() - 1)
-						outputTemp += ",";
+					//將輸出格式存入暫存
+					outputTemp += "[";
+					//將輸出資料存入暫存
+					for (unsigned int j = 0; j < this->Vectors[i].GetData().size(); j++)
+					{
+						outputTemp += this->Vectors[i].GetData().at(j).ToString();
+						if (j != this->Vectors[i].GetData().size() - 1)
+							outputTemp += ",";
+					}
+					//將輸出格式存入暫存，並且換行
+					outputTemp += "]" + Environment::NewLine;
+					//輸出暫存資訊
+					result += gcnew String(this->Vectors[i].GetName().c_str()) + " = " + outputTemp;
+					break;
 				}
-				//將輸出格式存入暫存，並且換行
-				outputTemp += "]" + Environment::NewLine;
-				//輸出暫存資訊
-				result += gcnew String(this->Vectors[i].GetName().c_str()) + " = " + outputTemp;
-				break;
 			}
 		}
+		else if (userCommand[0] == "dot")
+		{
+			//TODO: call dot function
+		}
+		//反之則判斷找不到指令
+		else
+		{
+			result = "-Command not found-" + Environment::NewLine;
+		}
 	}
-	else if (userCommand[0] == "dot")
+	catch(std::string whyError)
 	{
 		
+		result = gcnew String(whyError.c_str()) + Environment::NewLine;
 	}
-	//反之則判斷找不到指令
-	else
-	{
-		result = "-Command not found-" + Environment::NewLine;
-	}
+	
 	return result;
 }
 
