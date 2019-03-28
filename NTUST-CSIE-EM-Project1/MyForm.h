@@ -255,6 +255,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnClear->Name = L"btnClear";
 				 this->btnClear->Size = System::Drawing::Size(82, 42);
 				 this->btnClear->Text = L"Clear";
+				 this->btnClear->Click += gcnew System::EventHandler(this, &MyForm::btnClear_Click);
 				 // 
 				 // btnHint
 				 // 
@@ -377,6 +378,10 @@ namespace NTUSTCSIEEMProject1 {
 			}
 			Output->Text += "-Vector datas have been loaded-" + Environment::NewLine;
 		}
+	}
+	private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^  e) 
+	{
+
 	}
 };
 }
