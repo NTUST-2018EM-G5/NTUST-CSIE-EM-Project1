@@ -28,7 +28,6 @@ public:
 	std::string GetName();
 	void SetName(std::string);
 	void InsertValue(long double);
-	bool findVector(std::vector<long double>&,std::string);
 	int GetSize();
 
 private:
