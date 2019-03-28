@@ -34,46 +34,36 @@ bool DataManager::LoadVectorData()
 			//解析到向量標記"V"
 			if (tempSring == "V")
 			{
-				if (currentLoadVectorID != 0)
+				int count;
+				fin >> count;
+				for (int i = 0; i < count; ++i)
 				{
-					//定義暫存向量資料結構
-					MyVector tempVector;
-					//存入向量資料
-					tempVector.SetData(tempVectorData);
-					//定義向量變數名稱，依VectorVariableIndex變數作名稱的控管
-					std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
-					//存入向量變數名稱
-					tempVector.SetName(vectorVariableTemp);
-					//存入向量
-					Vectors.push_back(tempVector);
-					//遞增VectorVariableIndex，以確保變數名稱不重複
-					VectorVariableIndex++;
-					//清除向量資料暫存
-					tempVectorData.clear();
+					fin >> tempSring;
+					//讀取向量資料，並將string轉為double
+					long double value;
+					value = (long double)strtod(tempSring.c_str(), NULL);
+					//將向量資料存入暫存
+					tempVectorData.push_back(value);
 				}
+
+				//定義暫存向量資料結構
+				MyVector tempVector;
+				//存入向量資料
+				tempVector.SetData(tempVectorData);
+				//定義向量變數名稱，依VectorVariableIndex變數作名稱的控管
+				std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
+				//存入向量變數名稱
+				tempVector.SetName(vectorVariableTemp);
+				//存入向量
+				Vectors.push_back(tempVector);
+				//遞增VectorVariableIndex，以確保變數名稱不重複
+				VectorVariableIndex++;
+				//清除向量資料暫存
+				tempVectorData.clear();
 				//遞增currentLoadVectorID，標記到當前讀取向量ID
 				currentLoadVectorID++;
-				//從檔案讀取字串，解析掉向量維度
-				fin >> tempSring;
 			}
-			else
-			{
-				//讀取向量資料，並將string轉為double
-				long double value;
-				value = (long double)strtod(tempSring.c_str(), NULL);
-				//將向量資料存入暫存
-				tempVectorData.push_back(value);
-			}
-
 		}
-		//讀入輸入檔案中最後一個向量資訊
-		MyVector tempVector;
-		tempVector.SetData(tempVectorData);
-		std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
-		tempVector.SetName(vectorVariableTemp);
-		Vectors.push_back(tempVector);
-		VectorVariableIndex++;
-		//讀取成功回傳false
 		return true;
 	}
 }
@@ -95,6 +85,27 @@ void DataManager::Clear()
 	this->VectorVariableIndex = 0;
 }
 
+bool DataManager::findVector(std::string name, MyVector& result) 
+{
+	//透過for迴圈，從向量資料中找出對應變數
+	for (unsigned int i = 0; i < this->Vectors.size(); i++)
+	{
+		//若變數名稱與指令變數名稱符合
+		if (name == this->Vectors[i].GetName())
+		{
+			result = this->Vectors[i];
+			return true;
+		}
+	}
+	return false;
+}
+
+bool DataManager::queryVector(std::string query, MyVector& result)
+{
+	//TODO: 中序轉後序處理
+	return false;
+}
+
 System::String^ DataManager::CommandEvent(System::String^ command)
 {
 	System::String^ result;
@@ -106,34 +117,60 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		//字串比較，若指令為"print"的情況
 		if (userCommand[0] == "print")
 		{
-			//定義輸出暫存
-			String^ outputTemp = "";
-			//透過for迴圈，從向量資料中找出對應變數
-			for (unsigned int i = 0; i < this->Vectors.size(); i++)
+			if (userCommand->Length == 2)
 			{
+				//定義輸出暫存
+				String^ outputTemp = "";
+
+				//從向量資料中找出對應變數
+				MyVector vec;
 				//若變數名稱與指令變數名稱符合
-				if (userCommand[1] == gcnew String(this->Vectors[i].GetName().c_str()))
+				if (findVector(ToString_Sys2Std(userCommand[1]), vec))
 				{
 					//將輸出格式存入暫存
 					outputTemp += "[";
 					//將輸出資料存入暫存
-					for (unsigned int j = 0; j < this->Vectors[i].GetData().size(); j++)
+					for (unsigned int j = 0; j < vec.GetSize(); j++)
 					{
-						outputTemp += this->Vectors[i].GetData().at(j).ToString();
-						if (j != this->Vectors[i].GetData().size() - 1)
-							outputTemp += ",";
+						outputTemp += vec[j].ToString();
+						if (j != vec.GetSize() - 1)outputTemp += ",";
 					}
 					//將輸出格式存入暫存，並且換行
 					outputTemp += "]" + Environment::NewLine;
 					//輸出暫存資訊
-					result += gcnew String(this->Vectors[i].GetName().c_str()) + " = " + outputTemp;
-					break;
+					result += gcnew String(vec.GetName().c_str()) + " = " + outputTemp;
 				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
 			}
 		}
 		else if (userCommand[0] == "dot")
 		{
-			//TODO: call dot function
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = vec_a.dot(vec_b).ToString() + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		//反之則判斷找不到指令
 		else
@@ -141,10 +178,14 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			result = "-Command not found-" + Environment::NewLine;
 		}
 	}
-	catch(std::string whyError)
+	catch (std::string whyError) 
 	{
 		
 		result = gcnew String(whyError.c_str()) + Environment::NewLine;
+	}
+	catch (...)
+	{
+		result = "Error!" + Environment::NewLine;
 	}
 	
 	return result;

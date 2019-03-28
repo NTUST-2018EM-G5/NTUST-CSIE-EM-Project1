@@ -3,6 +3,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include"DotNetUitilities.h"
 #include"MyVector.h"
 
 using namespace std;
@@ -20,6 +21,10 @@ public:
 	void SetFileName(std::string fileName);
 	//清空資料
 	void Clear();
+	//以名稱尋找向量
+	bool findVector(std::string, MyVector&);
+	//以運算式算向量
+	bool queryVector(std::string, MyVector&);
 	//輸入指令，回傳結果
 	System::String^ CommandEvent(System::String^);
 
