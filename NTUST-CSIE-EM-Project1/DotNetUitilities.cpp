@@ -9,6 +9,16 @@ void MarshalString(System::String^ s, std::string& os)
 	Marshal::FreeHGlobal(System::IntPtr((void*)chars));
 }
 
+std::string ToString_Sys2Std(System::String^ s)
+{
+	std::string result;
+	using namespace System::Runtime::InteropServices;
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	result = chars;
+	Marshal::FreeHGlobal(System::IntPtr((void*)chars));
+	return result;
+}
+
 std::wstring MQString2wstring(System::String^ IString)
 {
 	std::wstring Owstring;
