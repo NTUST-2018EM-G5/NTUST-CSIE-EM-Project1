@@ -114,3 +114,25 @@ long double& MyVector::operator[] (const int index)
 {
 	return this->Data.at(index);
 }
+
+long double MyVector::dot(const MyVector& b)
+{
+	if (this->Data.size() == b.Data.size() && this->Data.size() != 0)
+	{
+		long double result = 0;
+		for (int i = 0; i < this->Data.size(); ++i)
+		{
+			result += this->Data[i] * b.Data[i];
+		}
+		return result;
+	}
+	else
+	{
+		throw std::string("Error: Size different or zero");
+	}
+}
+
+int MyVector::GetSize()
+{
+	return this->Data.size();
+}

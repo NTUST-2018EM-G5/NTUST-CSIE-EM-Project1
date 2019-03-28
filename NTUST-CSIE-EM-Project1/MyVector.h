@@ -11,19 +11,25 @@ public:
 	MyVector();
 	MyVector(std::string name, std::vector<long double> data) :Name(name), Data(data) {}
 
-	//Operator overloading
+	//--Operator overloading--
 	MyVector operator+(const MyVector&);
 	MyVector operator-(const MyVector&);
 	MyVector operator*(const MyVector&);
 	MyVector operator/(const MyVector&);
 	long double& operator[] (const int);
 
+	//--Function--
+	long double dot(const MyVector&);
+
+	
+	//--Setting--
 	std::vector<long double> GetData();
 	void SetData(std::vector<long double>);
 	std::string GetName();
 	void SetName(std::string);
 	void InsertValue(long double);
-	
+	bool findVector(std::vector<long double>&,std::string);
+	int GetSize();
 
 private:
 	//向量名稱
