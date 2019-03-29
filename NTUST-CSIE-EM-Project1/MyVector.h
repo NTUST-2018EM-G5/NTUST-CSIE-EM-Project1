@@ -9,6 +9,7 @@ class MyVector
 {
 public:
 	MyVector();
+	MyVector(long double);
 	MyVector(std::string name, std::vector<long double> data) :Name(name), Data(data) {}
 
 	//--Operator overloading--
@@ -20,6 +21,7 @@ public:
 
 	//--Function--
 	long double dot(const MyVector&);
+	long double norm();
 
 	
 	//--Setting--

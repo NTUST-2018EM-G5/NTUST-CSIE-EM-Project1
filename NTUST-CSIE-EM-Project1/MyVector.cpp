@@ -6,6 +6,11 @@ MyVector::MyVector()
 {
 }
 
+MyVector::MyVector(long double value)
+{
+	this->Data.push_back(value);
+}
+
 std::vector<long double> MyVector::GetData()
 {
 	return this->Data;
@@ -68,7 +73,8 @@ MyVector MyVector::operator*(const MyVector& b_)
 	
 	if (a.Data.size() == b.Data.size())
 	{
-		//TODO: Dot vector
+		a = a.dot(b);
+		return a;
 	}
 	else if (a.Data.size() == 1)
 	{
@@ -90,7 +96,6 @@ MyVector MyVector::operator*(const MyVector& b_)
 	{
 		throw std::string("Error: different size");
 	}
-	return a;
 }
 
 MyVector MyVector::operator/(const MyVector& b)
@@ -130,6 +135,17 @@ long double MyVector::dot(const MyVector& b)
 	{
 		throw std::string("Error: Size different or zero");
 	}
+}
+
+long double MyVector::norm()
+{
+	long double result;
+	for (int i = 0; i < this->Data.size(); ++i)
+	{
+		result += this->Data[i] * this->Data[i];
+	}
+	result = sqrt(result);
+	return result;
 }
 
 int MyVector::GetSize()

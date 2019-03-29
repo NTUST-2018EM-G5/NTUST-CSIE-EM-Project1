@@ -172,6 +172,23 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				throw std::string("Error: Wrong command");
 			}
 		}
+		else if (userCommand[0] == "norm")
+		{
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyVector vec_a;
+				if (findVector(command1, vec_a) || queryVector(command1, vec_a))
+				{
+					System::String^ result = vec_a.norm() + Environment::NewLine;
+					return result;
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
 		//反之則判斷找不到指令
 		else
 		{
