@@ -183,6 +183,10 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					System::String^ result = vec_a.norm() + Environment::NewLine;
 					return result;
 				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
 			}
 			else
 			{

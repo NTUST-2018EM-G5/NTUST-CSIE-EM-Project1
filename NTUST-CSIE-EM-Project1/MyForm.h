@@ -381,7 +381,13 @@ namespace NTUSTCSIEEMProject1 {
 	}
 	private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^  e) 
 	{
+		//資料清除
+		dataManager->Clear();
 
+		//介面清除
+		VectorList->Items->Clear();
+		Input->Clear();
+		Output->Clear();
 	}
 };
 }
