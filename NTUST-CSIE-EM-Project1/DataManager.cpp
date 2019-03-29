@@ -100,10 +100,117 @@ bool DataManager::findVector(std::string name, MyVector& result)
 	return false;
 }
 
+int priority(char op)
+{
+	switch (op)
+	{
+	case '+': case '-': return 1;
+	case '*': case '/': return 2;
+	default:            return 0;
+	}
+}
+
+MyVector cal(char op, MyVector p1, MyVector p2)
+{
+	switch (op)
+	{
+	case '+': return p1 + p2;
+	case '-': return p1 - p2;
+	case '*': return p1 * p2;
+	case '/': return p1 / p2;
+	}
+}
+
 bool DataManager::queryVector(std::string query, MyVector& result)
 {
 	//TODO: 中序轉後序處理
-	return false;
+	char stack[999] = { '\0' };
+	std:string newquery;
+	int i,top;
+	for (i = 0, top = 0; query[i] != '\0'; i++) switch (query[i])
+	{
+	case '(':              // 運算子堆疊
+		stack[++top] = query[i];
+		break;
+	case '+': case '-': case '*': case '/':
+		while (priority(stack[top]) >= priority(query[i]))
+		{
+			newquery += stack[top--];
+		}
+		stack[++top] = query[i]; // 存入堆疊
+		break;
+	case ')':
+		while (stack[top] != '(') // 遇 ) 輸出至 (
+		{ 
+			newquery += stack[top--];
+		}
+		top--;  // 不輸出 (
+		break;
+	default:  // 運算元直接輸出
+		newquery += query[i];
+	}
+	while (top > 0)
+	{
+		newquery += stack[top--];
+	}
+	//-----------------
+	//string* stack2 = new string[999];
+	vector<string> stack2;
+	int j, top2,tempvectorCount = 0;
+	MyVector temp1, temp2,tempvector;
+	for (j = 0, top2 = -1; newquery[j] != '\0'; j++) switch (newquery[j])
+	{
+	case '+': case '-': case '*':
+		/*top2++;
+		stack2[top2] += newquery[j];*/
+		if (!this->findVector(stack2[top2 - 1], temp1)) { throw std::string("Error: 原因"); };
+		if (!this->findVector(stack2[top2], temp2)) { throw std::string("Error: 原因"); };
+		if (newquery[j] = '+')
+		{
+			tempvector = temp1 + temp2;
+		}
+		else if (newquery[j] = '-')
+		{
+			tempvector = temp1 - temp2;
+		}
+		else if (newquery[j] = '*')
+		{
+			tempvector = temp1 * temp2;
+		}
+		tempvector.SetName("$TEMPP" + to_string(tempvectorCount));
+		Vectors.push_back(tempvector);
+		stack2.pop_back();
+		stack2.pop_back();
+		stack2.push_back("$TEMPP" + to_string(tempvectorCount));
+		tempvectorCount++;
+		top2--;
+		break;
+	case '$':
+		top2++;
+		stack2.push_back("");
+	default:
+		stack2[top2] += newquery[j];
+	}
+	/*for (top = 0, i = 0; newquery[i] != '\0'; i++) switch (newquery[i])
+	{
+	case '+': case '-': case '*': case '/':
+		stack[top - 1] = cal(newquery[i], stack[top - 1], stack[top]);
+		top--;
+		break;
+	default:
+		opnd[0] = newquery[i];
+		stack[++top] = atof(opnd);
+	}*/
+
+
+	if (this->findVector(stack2[0], result))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 System::String^ DataManager::CommandEvent(System::String^ command)
