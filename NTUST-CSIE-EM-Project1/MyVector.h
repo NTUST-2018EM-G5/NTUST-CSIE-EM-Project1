@@ -23,6 +23,7 @@ public:
 	long double dot(const MyVector&);
 	long double norm();
 	MyVector normal();
+	MyVector cross(const MyVector&);
 
 	
 	//--Setting--

@@ -159,6 +159,27 @@ MyVector MyVector::normal()
 	return result;
 }
 
+MyVector MyVector::cross(const MyVector& b)
+{
+	MyVector result = *this;
+	if (this->Data.size() == b.Data.size() && this->Data.size() == 3)
+	{
+		for (int i = 0; i < this->Data.size(); ++i)
+		{
+			result.Data[i] = this->Data[(i + 1) % 3] * b.Data[(i + 2) % 3];
+		}
+		for (int i = 0; i < this->Data.size(); ++i)
+		{
+			result.Data[i] -= this->Data[(i + 2) % 3] * b.Data[(i + 1) % 3];
+		}
+	}
+	else
+	{
+		throw std::string("Error: cross product only define in R^3");
+	}
+	return result;
+}
+
 int MyVector::GetSize()
 {
 	return this->Data.size();
