@@ -332,7 +332,24 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "normal")
 		{
-			//TODO: normal
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyVector vec_a;
+				if (findVector(command1, vec_a) || queryVector(command1, vec_a))
+				{
+					System::String^ result = vec_a.normal().PrintData("0.000000000000000");
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "cross")
 		{
