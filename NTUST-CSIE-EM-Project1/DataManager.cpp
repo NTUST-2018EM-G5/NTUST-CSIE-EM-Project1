@@ -165,15 +165,15 @@ bool DataManager::queryVector(std::string query, MyVector& result)
 		stack2[top2] += newquery[j];*/
 		if (!this->findVector(stack2[top2 - 1], temp1)) { throw std::string("Error: Vector not found"); };
 		if (!this->findVector(stack2[top2], temp2)) { throw std::string("Error: Vector not found"); };
-		if (newquery[j] = '+')
+		if (newquery[j] == '+')
 		{
 			tempvector = temp1 + temp2;
 		}
-		else if (newquery[j] = '-')
+		else if (newquery[j] == '-')
 		{
 			tempvector = temp1 - temp2;
 		}
-		else if (newquery[j] = '*')
+		else if (newquery[j] == '*')
 		{
 			tempvector = temp1 * temp2;
 		}
@@ -205,10 +205,18 @@ bool DataManager::queryVector(std::string query, MyVector& result)
 
 	if (this->findVector(stack2[0], result))
 	{
+		for (int k = 0; k < tempvectorCount; k++)
+		{
+			this->Vectors.pop_back();
+		}
 		return true;
 	}
 	else
 	{
+		for (int k = 0; k < tempvectorCount; k++)
+		{
+			this->Vectors.pop_back();
+		}
 		return false;
 	}
 }
