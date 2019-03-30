@@ -273,8 +273,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a;
 				if (queryVector(command1, vec_a))
 				{
-					//System::String^ result = vec_a.PrintData();
-					System::String^ result = gcnew String(vec_a.PrintData_std().c_str());
+					System::String^ result = vec_a.PrintData();
 					
 					return result;
 				}
