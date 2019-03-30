@@ -153,14 +153,26 @@ int MyVector::GetSize()
 	return this->Data.size();
 }
 
-System::String^ MyVector::PrintData()
+//System::String^ MyVector::PrintData()
+//{
+//	System::String^ result = "[";
+//	int i;
+//	for (i = 0; i < this->GetSize() - 1; ++i)
+//	{
+//		result += this->Data[i].ToString() + ",";
+//	}
+//	result += this->Data[i].ToString() + "]\r\n";
+//	return result;
+//}
+
+std::string MyVector::PrintData_std()
 {
-	System::String^ result = "[";
+	std::string result = "[";
 	int i;
 	for (i = 0; i < this->GetSize() - 1; ++i)
 	{
-		result += this->Data[i].ToString() + ",";
+		result += std::to_string(this->Data[i]) + ",";
 	}
-	result += this->Data[i].ToString() + "]\r\n";
+	result += std::to_string(this->Data[i]) + "]\r\n";
 	return result;
 }

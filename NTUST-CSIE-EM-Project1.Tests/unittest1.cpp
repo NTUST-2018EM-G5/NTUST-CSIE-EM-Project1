@@ -8,6 +8,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace NTUSTCSIEEMProject1Tests
 {		
+	
 	TEST_CLASS(UnitTest1)
 	{
 	public:

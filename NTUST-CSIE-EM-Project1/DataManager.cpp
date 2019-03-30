@@ -273,7 +273,9 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a;
 				if (queryVector(command1, vec_a))
 				{
-					System::String^ result = vec_a.PrintData();
+					//System::String^ result = vec_a.PrintData();
+					System::String^ result = gcnew String(vec_a.PrintData_std().c_str());
+					
 					return result;
 				}
 				else
@@ -328,6 +330,50 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			{
 				throw std::string("Error: Wrong command");
 			}
+		}
+		else if (userCommand[0] == "normal")
+		{
+			//TODO: normal
+		}
+		else if (userCommand[0] == "cross")
+		{
+			//TODO: cross
+		}
+		else if (userCommand[0] == "com")
+		{
+			//TODO: com
+		}
+		else if (userCommand[0] == "proj")
+		{
+			//TODO: proj
+		}
+		else if (userCommand[0] == "area")
+		{
+			//TODO: area
+		}
+		else if (userCommand[0] == "isParallel")
+		{
+			//TODO: isParallel
+		}
+		else if (userCommand[0] == "isOrthogonal")
+		{
+			//TODO: isOrthogonal
+		}
+		else if (userCommand[0] == "angle")
+		{
+			//TODO: angle
+		}
+		else if (userCommand[0] == "pN")
+		{
+			//TODO: pN
+		}
+		else if (userCommand[0] == "isLI")
+		{
+			//TODO: isLI
+		}
+		else if (userCommand[0] == "ob")
+		{
+			//TODO: ob
 		}
 		//反之則判斷找不到指令
 		else
