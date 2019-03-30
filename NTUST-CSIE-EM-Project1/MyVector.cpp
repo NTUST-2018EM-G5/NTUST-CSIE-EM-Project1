@@ -152,3 +152,15 @@ int MyVector::GetSize()
 {
 	return this->Data.size();
 }
+
+System::String^ MyVector::PrintData()
+{
+	System::String^ result = "[";
+	int i;
+	for (i = 0; i < this->GetSize() - 1; ++i)
+	{
+		result += this->Data[i].ToString() + ",";
+	}
+	result += this->Data[i].ToString() + "]\r\n";
+	return result;
+}

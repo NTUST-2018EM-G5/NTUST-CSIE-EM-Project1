@@ -163,8 +163,8 @@ bool DataManager::queryVector(std::string query, MyVector& result)
 	case '+': case '-': case '*':
 		/*top2++;
 		stack2[top2] += newquery[j];*/
-		if (!this->findVector(stack2[top2 - 1], temp1)) { throw std::string("Error: 原因"); };
-		if (!this->findVector(stack2[top2], temp2)) { throw std::string("Error: 原因"); };
+		if (!this->findVector(stack2[top2 - 1], temp1)) { throw std::string("Error: Vector not found"); };
+		if (!this->findVector(stack2[top2], temp2)) { throw std::string("Error: Vector not found"); };
 		if (newquery[j] = '+')
 		{
 			tempvector = temp1 + temp2;
@@ -246,6 +246,27 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					outputTemp += "]" + Environment::NewLine;
 					//輸出暫存資訊
 					result += gcnew String(vec.GetName().c_str()) + " = " + outputTemp;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "run")
+		{
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyVector vec_a;
+				if (queryVector(command1, vec_a))
+				{
+					System::String^ result = vec_a.PrintData();
+					return result;
 				}
 				else
 				{

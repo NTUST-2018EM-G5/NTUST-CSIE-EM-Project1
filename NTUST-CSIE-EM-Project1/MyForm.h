@@ -330,7 +330,7 @@ namespace NTUSTCSIEEMProject1 {
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
 			dataManager->CommandEvent(userInput);
-			Output->Text += dataManager->CommandEvent(userInput) + Environment::NewLine;
+			Output->Text += dataManager->CommandEvent(userInput);
 		}
 		else
 		{

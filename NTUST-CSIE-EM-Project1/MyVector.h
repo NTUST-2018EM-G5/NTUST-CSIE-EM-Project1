@@ -31,6 +31,7 @@ public:
 	void SetName(std::string);
 	void InsertValue(long double);
 	int GetSize();
+	System::String^ PrintData();
 
 private:
 	//向量名稱
