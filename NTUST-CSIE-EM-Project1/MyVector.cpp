@@ -86,7 +86,7 @@ MyVector MyVector::operator*(const MyVector& b_)
 	}
 	else if (b.Data.size() == 1)
 	{
-		for (int i = 0; i < b.Data.size(); ++i)
+		for (int i = 0; i < a.Data.size(); ++i)
 		{
 			a.Data.at(i) *= b.Data.at(0);
 		}
