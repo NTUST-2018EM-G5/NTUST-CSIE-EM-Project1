@@ -79,10 +79,10 @@ struct Vector
 ## Distribution
 
 ### Vector Operation
-- [ ] Dot of Vector (1%)
-- [ ] Vector addition (1%)
-- [ ] Scalar Multiplication with vector (1%) (若vector只有一個元素時，就是Scalar)
-- [ ] Norm of Vector (2%)
+- [x] Dot of Vector (1%)
+- [x] Vector addition (1%)
+- [x] Scalar Multiplication with vector (1%) (若vector只有一個元素時，就是Scalar)
+- [x] Norm of Vector (2%)
 - [ ] Vector normalization (2%)
 - [ ] Cross product (2%)
 - [ ] Component of a on b (2%)
