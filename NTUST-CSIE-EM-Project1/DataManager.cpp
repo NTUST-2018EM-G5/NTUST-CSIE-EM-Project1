@@ -397,29 +397,47 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "proj")
 		{
-		if (userCommand->Length == 3)
-		{
-			std::string command1 = ToString_Sys2Std(userCommand[1]);
-			std::string command2 = ToString_Sys2Std(userCommand[2]);
-			MyVector vec_a, vec_b;
-			if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+			if (userCommand->Length == 3)
 			{
-				System::String^ result = vec_a.proj(vec_b).PrintData();
-				return result;
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = vec_a.proj(vec_b).PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
 			}
 			else
 			{
-				throw std::string("Error: Vector not found");
+				throw std::string("Error: Wrong command");
 			}
-		}
-		else
-		{
-			throw std::string("Error: Wrong command");
-		}
 		}
 		else if (userCommand[0] == "area")
 		{
-			//TODO: area
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					//System::String^ result = vec_a.area(vec_b).PrintData();
+					//return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "isParallel")
 		{

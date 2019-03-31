@@ -210,6 +210,20 @@ MyVector MyVector::proj(const MyVector& b)
 	return result;
 }
 
+MyVector MyVector::area(const MyVector& b)
+{
+	MyVector result = *this;
+	if (this->Data.size() == b.Data.size())
+	{
+		//TODO: area
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same");
+	}
+	return result;
+}
+
 int MyVector::GetSize()
 {
 	return this->Data.size();
