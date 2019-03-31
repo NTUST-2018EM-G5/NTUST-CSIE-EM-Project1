@@ -180,6 +180,28 @@ MyVector MyVector::cross(const MyVector& b)
 	return result;
 }
 
+/*MyVector MyVector::crossforarea(const MyVector& b)
+{
+	MyVector result = *this;
+	if (this->Data.size() == b.Data.size())
+	{
+		int theSize = this->Data.size();
+		for (int i = 0; i < this->Data.size(); ++i)
+		{
+			result.Data[i] = this->Data[(i + 1) % theSize] * b.Data[(i + 2) % theSize];
+		}
+		for (int i = 0; i < this->Data.size(); ++i)
+		{
+			result.Data[i] -= this->Data[(i + 2) % theSize] * b.Data[(i + 1) % theSize];
+		}
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same.");
+	}
+	return result;
+}*/
+
 long double MyVector::com(const MyVector& b)
 {
 	long double result;
@@ -191,7 +213,7 @@ long double MyVector::com(const MyVector& b)
 	}
 	else
 	{
-		throw std::string("Error: the size isn't the same");
+		throw std::string("Error: the size isn't the same.");
 	}
 	return result;
 }
@@ -210,7 +232,7 @@ MyVector MyVector::proj(const MyVector& b)
 	}
 	else
 	{
-		throw std::string("Error: the size isn't the same");
+		throw std::string("Error: the size isn't the same.");
 	}
 	return result;
 }
@@ -220,11 +242,14 @@ long double MyVector::area(const MyVector& b)
 	long double result;
 	if (this->Data.size() == b.Data.size())
 	{
-		//TODO: area
+		MyVector temp;
+		temp = this->cross(b);
+		result = temp.norm();
+		result = result * 0.5;
 	}
 	else
 	{
-		throw std::string("Error: the size isn't the same");
+		throw std::string("Error: the size isn't the same.");
 	}
 	return result;
 }
