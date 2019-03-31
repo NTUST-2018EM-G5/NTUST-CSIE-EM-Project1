@@ -183,11 +183,25 @@ MyVector MyVector::cross(const MyVector& b)
 long double MyVector::com(const MyVector& b)
 {
 	long double result;
-	if (this->Data.size() == b.Data.size() && this->Data.size() == 3)
+	if (this->Data.size() == b.Data.size())
 	{
 		MyVector temp = b;
 		result = this->dot(b);
 		result = result / temp.norm();
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same");
+	}
+	return result;
+}
+
+MyVector MyVector::proj(const MyVector& b)
+{
+	MyVector result = *this;
+	if (this->Data.size() == b.Data.size())
+	{
+		//TODO: proj
 	}
 	else
 	{
