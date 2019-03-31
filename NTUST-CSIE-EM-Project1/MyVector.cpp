@@ -180,6 +180,20 @@ MyVector MyVector::cross(const MyVector& b)
 	return result;
 }
 
+long double MyVector::com(const MyVector& b)
+{
+	long double result;
+	if (this->Data.size() == b.Data.size() && this->Data.size() == 3)
+	{
+		//TODO: com
+	}
+	else
+	{
+		throw std::string("Error: ");
+	}
+	return result;
+}
+
 int MyVector::GetSize()
 {
 	return this->Data.size();

@@ -375,7 +375,25 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "com")
 		{
-			//TODO: com
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = vec_a.com(vec_b).ToString();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "proj")
 		{

@@ -24,6 +24,7 @@ public:
 	long double norm();
 	MyVector normal();
 	MyVector cross(const MyVector&);
+	long double com(const MyVector&);
 
 	
 	//--Setting--

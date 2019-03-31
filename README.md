@@ -84,7 +84,7 @@ struct Vector
 - [x] Scalar Multiplication with vector (1%) (若vector只有一個元素時，就是Scalar)
 - [x] Norm of Vector (2%)
 - [x] Vector normalization (2%)
-- [ ] Cross product (2%)
+- [x] Cross product (2%)
 - [ ] Component of a on b (2%)
 - [ ] Projection of a on b (2%)
 - [ ] Triangle area (2%)
