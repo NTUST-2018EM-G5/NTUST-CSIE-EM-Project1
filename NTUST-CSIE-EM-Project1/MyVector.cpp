@@ -201,7 +201,6 @@ MyVector MyVector::proj(const MyVector& b)
 	MyVector result = *this;
 	if (this->Data.size() == b.Data.size())
 	{
-		//TODO: proj
 		MyVector temp = b;
 		long double tempnum;
 		tempnum = result.com(b);
