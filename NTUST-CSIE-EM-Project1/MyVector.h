@@ -26,7 +26,7 @@ public:
 	MyVector cross(const MyVector&);
 	long double com(const MyVector&);
 	MyVector proj(const MyVector&);
-	MyVector area(const MyVector&);
+	long double area(const MyVector&);
 	
 	//--Setting--
 	std::vector<long double> GetData();

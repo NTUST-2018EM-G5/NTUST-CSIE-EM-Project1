@@ -215,9 +215,9 @@ MyVector MyVector::proj(const MyVector& b)
 	return result;
 }
 
-MyVector MyVector::area(const MyVector& b)
+long double MyVector::area(const MyVector& b)
 {
-	MyVector result = *this;
+	long double result;
 	if (this->Data.size() == b.Data.size())
 	{
 		//TODO: area

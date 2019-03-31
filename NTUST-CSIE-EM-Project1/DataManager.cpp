@@ -426,8 +426,8 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					//System::String^ result = vec_a.area(vec_b).PrintData();
-					//return result;
+					System::String^ result = vec_a.area(vec_b).ToString() + Environment::NewLine;
+					return result;
 				}
 				else
 				{
