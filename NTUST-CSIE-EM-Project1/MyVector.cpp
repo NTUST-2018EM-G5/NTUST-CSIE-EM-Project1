@@ -202,6 +202,12 @@ MyVector MyVector::proj(const MyVector& b)
 	if (this->Data.size() == b.Data.size())
 	{
 		//TODO: proj
+		MyVector temp = b;
+		long double tempnum;
+		tempnum = result.com(b);
+		tempnum = tempnum / temp.norm();
+		result = b;
+		result = result * tempnum;
 	}
 	else
 	{
