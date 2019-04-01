@@ -258,9 +258,38 @@ bool MyVector::isParallel(const MyVector& b)
 {
 	if (this->Data.size() == b.Data.size())
 	{
+		int theSize = this->Data.size();
 		long double tempnum;
-		tempnum = this->dot(b);
-		if (tempnum <= 0.0000001 && tempnum >= -0.0000001)
+		bool flag = 0;
+		for (int i = 0; i < theSize-1; i++)
+		{
+			if (abs(b.Data[i]) <= 0.000000001 && abs(this->Data[i]) <= 0.000000001)
+			{
+			}
+			else if (abs(b.Data[i]) <= 0.000000001)
+			{
+				tempnum = INT_MAX;
+				flag = 1;
+			}
+			else if (abs(this->Data[i]) <= 0.000000001)
+			{
+				tempnum = 0;
+				flag = 1;
+			}
+			else
+			{
+				tempnum = this->Data[i] / b.Data[i];
+				flag = 1;
+			}
+			if (flag == 1)
+			{
+				if (this->Data[i+1] != b.Data[i+1] * tempnum)
+				{
+					return false;
+				}
+			}
+		}
+		if (tempnum == 0)
 		{
 			return false;
 		}
@@ -268,6 +297,7 @@ bool MyVector::isParallel(const MyVector& b)
 	else
 	{
 		throw std::string("Error: the size isn't the same.");
+		return false;
 	}
 	return true;
 }
@@ -275,7 +305,50 @@ bool MyVector::isParallel(const MyVector& b)
 bool MyVector::isOrthogonal(const MyVector& b)
 {
 	//TODO: isOrthogonal
+	if (this->Data.size() == b.Data.size())
+	{
+		long double tempnum;
+		tempnum = this->dot(b);
+		if (abs(tempnum) <= 0.000000001)
+		{
+			return true;
+		}
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same.");
+	}
 	return false;
+	/*if (this->Data.size() == b.Data.size())
+	{
+		int theSize = this->Data.size();
+		long double tempnum;
+		if (abs(b.Data[0]) <= 0.000000001)
+		{
+			tempnum = INT_MAX;
+		}
+		else if (abs(this->Data[0]) <= 0.000000001)
+		{
+			tempnum = 0;
+		}
+		else
+		{
+			tempnum = this->Data[0] / b.Data[0];
+		}
+		for (int i = 1; i < theSize; i++)
+		{
+			if (this->Data[i]  != b.Data[i] * tempnum)
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same.");
+		return false;
+	}
+	return true;*/
 }
 
 long double MyVector::angle(const MyVector& b)
