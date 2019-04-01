@@ -5,6 +5,7 @@
 #include<string>
 #include"DotNetUitilities.h"
 #include"MyVector.h"
+#include"MyMatrix.h"
 
 using namespace std;
 using namespace System;
@@ -31,6 +32,8 @@ public:
 private:
 	//儲存向量資料
 	std::vector<MyVector> Vectors;
+	//儲存矩陣資料
+	std::vector<MyMatrix> Matrixs;
 	//紀錄向量ID，用於控管
 	int  VectorVariableIndex;
 	//紀錄檔案路徑名稱
