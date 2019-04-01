@@ -256,8 +256,20 @@ long double MyVector::area(const MyVector& b)
 
 bool MyVector::isParallel(const MyVector& b)
 {
-	//TODO: isParallel
-	return false;
+	if (this->Data.size() == b.Data.size())
+	{
+		long double tempnum;
+		tempnum = this->dot(b);
+		if (tempnum <= 0.0000001 && tempnum >= -0.0000001)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same.");
+	}
+	return true;
 }
 
 bool MyVector::isOrthogonal(const MyVector& b)
