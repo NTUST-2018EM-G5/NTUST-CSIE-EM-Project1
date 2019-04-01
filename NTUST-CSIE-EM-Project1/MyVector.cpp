@@ -254,6 +254,38 @@ long double MyVector::area(const MyVector& b)
 	return result;
 }
 
+bool MyVector::isParallel(const MyVector& b)
+{
+	//TODO: isParallel
+	return false;
+}
+
+bool MyVector::isOrthogonal(const MyVector& b)
+{
+	//TODO: isOrthogonal
+	return false;
+}
+
+long double MyVector::angle(const MyVector& b)
+{
+	long double result;
+	//TODO: angle
+	return result;
+}
+
+MyVector MyVector::pN(const MyVector& b)
+{
+	MyVector result;
+	//TODO: pN
+	return result;
+}
+
+bool MyVector::isLI(const MyVector& b)
+{
+	//TODO: isLI
+	return false;
+}
+
 int MyVector::GetSize()
 {
 	return this->Data.size();

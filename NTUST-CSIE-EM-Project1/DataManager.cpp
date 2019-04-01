@@ -229,7 +229,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 	cli::array<System::String^> ^userCommand = command->Split(' ');
 	try
 	{
-		//字串比較，若指令為"print"的情況
+		//輸入Vector指令
 		if (userCommand[0] == "print")
 		{
 			if (userCommand->Length == 2)
@@ -441,23 +441,113 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "isParallel")
 		{
-			//TODO: isParallel
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = (vec_a.isParallel(vec_b) ? "Yes" : "No") + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "isOrthogonal")
 		{
-			//TODO: isOrthogonal
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = (vec_a.isOrthogonal(vec_b) ? "Yes" : "No") + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "angle")
 		{
-			//TODO: angle
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = vec_a.angle(vec_b).ToString() + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "pN")
 		{
-			//TODO: pN
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = vec_a.pN(vec_b).PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "isLI")
 		{
-			//TODO: isLI
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyVector vec_a, vec_b;
+				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				{
+					System::String^ result = (vec_a.isLI(vec_b) ? "Yes" : "No") + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Vector not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		else if (userCommand[0] == "ob")
 		{

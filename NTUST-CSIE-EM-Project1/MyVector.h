@@ -3,6 +3,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<cmath>
 
 //定義向量資料結構
 class MyVector
@@ -28,6 +29,11 @@ public:
 	long double com(const MyVector&);
 	MyVector proj(const MyVector&);
 	long double area(const MyVector&);
+	bool isParallel(const MyVector&);
+	bool isOrthogonal(const MyVector&);
+	long double angle(const MyVector&);
+	MyVector pN(const MyVector&);
+	bool isLI(const MyVector&);
 	
 	//--Setting--
 	std::vector<long double> GetData();
