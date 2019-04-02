@@ -287,7 +287,6 @@ bool MyVector::isParallel(const MyVector& b)
 
 bool MyVector::isOrthogonal(const MyVector& b)
 {
-	//TODO: isOrthogonal
 	if (this->Data.size() == b.Data.size())
 	{
 		long double tempnum;
@@ -302,42 +301,25 @@ bool MyVector::isOrthogonal(const MyVector& b)
 		throw std::string("Error: the size isn't the same.");
 	}
 	return false;
-	/*if (this->Data.size() == b.Data.size())
-	{
-		int theSize = this->Data.size();
-		long double tempnum;
-		if (abs(b.Data[0]) <= 0.000000001)
-		{
-			tempnum = INT_MAX;
-		}
-		else if (abs(this->Data[0]) <= 0.000000001)
-		{
-			tempnum = 0;
-		}
-		else
-		{
-			tempnum = this->Data[0] / b.Data[0];
-		}
-		for (int i = 1; i < theSize; i++)
-		{
-			if (this->Data[i]  != b.Data[i] * tempnum)
-			{
-				return false;
-			}
-		}
-	}
-	else
-	{
-		throw std::string("Error: the size isn't the same.");
-		return false;
-	}
-	return true;*/
 }
 
 long double MyVector::angle(const MyVector& b)
 {
 	long double result;
-	//TODO: angle
+	if (this->Data.size() == b.Data.size())
+	{
+		MyVector temp = b;
+		result = this->dot(b);
+		result /= this->norm();
+		result /= temp.norm();
+		result = acos(result);
+		result *= 180;
+		result /= M_PI;
+	}
+	else
+	{
+		throw std::string("Error: the size isn't the same.");
+	}
 	return result;
 }
 
