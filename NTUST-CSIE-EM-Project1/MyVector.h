@@ -25,7 +25,6 @@ public:
 	long double norm();
 	MyVector normal();
 	MyVector cross(const MyVector&);
-	//MyVector crossforarea(const MyVector&);
 	long double com(const MyVector&);
 	MyVector proj(const MyVector&);
 	long double area(const MyVector&);

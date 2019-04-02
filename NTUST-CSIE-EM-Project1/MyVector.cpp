@@ -139,7 +139,7 @@ long double MyVector::dot(const MyVector& b)
 
 long double MyVector::norm()
 {
-	long double result;
+	long double result = 0;
 	for (int i = 0; i < this->Data.size(); ++i)
 	{
 		result += this->Data[i] * this->Data[i];
@@ -179,28 +179,6 @@ MyVector MyVector::cross(const MyVector& b)
 	}
 	return result;
 }
-
-/*MyVector MyVector::crossforarea(const MyVector& b)
-{
-	MyVector result = *this;
-	if (this->Data.size() == b.Data.size())
-	{
-		int theSize = this->Data.size();
-		for (int i = 0; i < this->Data.size(); ++i)
-		{
-			result.Data[i] = this->Data[(i + 1) % theSize] * b.Data[(i + 2) % theSize];
-		}
-		for (int i = 0; i < this->Data.size(); ++i)
-		{
-			result.Data[i] -= this->Data[(i + 2) % theSize] * b.Data[(i + 1) % theSize];
-		}
-	}
-	else
-	{
-		throw std::string("Error: the size isn't the same.");
-	}
-	return result;
-}*/
 
 long double MyVector::com(const MyVector& b)
 {
@@ -243,9 +221,14 @@ long double MyVector::area(const MyVector& b)
 	if (this->Data.size() == b.Data.size())
 	{
 		MyVector temp;
-		temp = this->cross(b);
-		result = temp.norm();
-		result = result * 0.5;
+		long double tempdot;
+		temp = b;
+		result = this->norm() * this->norm();
+		result *= temp.norm() * temp.norm();
+		tempdot = this->dot(b);
+		result -= tempdot * tempdot;
+		result = sqrt(result);
+		result *= 0.5;
 	}
 	else
 	{
