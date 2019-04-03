@@ -41,9 +41,9 @@ public:
 	std::string GetName();
 	void SetName(std::string);
 	void InsertValue(long double);
-	int GetSize();
-	System::String^ PrintData();
-	System::String^ PrintData(std::string);
+	int GetSize() const;
+	System::String^ PrintData() const;
+	System::String^ PrintData(std::string) const;
 
 private:
 	//向量名稱
@@ -51,4 +51,8 @@ private:
 	//向量資料
 	std::vector<long double> Data;
 };
+
+
+std::vector<MyVector> ob(const std::vector<MyVector>&);
+System::String^ PrintMultipleVector(const std::vector<MyVector>&);
 

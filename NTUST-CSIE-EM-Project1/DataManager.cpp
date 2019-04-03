@@ -534,12 +534,12 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				std::string command;
 				std::vector<MyVector> vec;
 				int length = userCommand->Length;
-				vec.resize(length);
+				vec.resize(length - 1);
 				for (int i = 1; i < length; ++i)
 				{
 					command = ToString_Sys2Std(userCommand[i]);
 
-					if (findVector(command, vec[i]) || queryVector(command, vec[i]))
+					if (findVector(command, vec[i - 1]) || queryVector(command, vec[i - 1]))
 					{
 						//TODO: 處理isLI function
 					}
@@ -559,7 +559,35 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "ob")
 		{
-			//TODO: ob
+		if (userCommand->Length >= 3)
+		{
+			std::string command;
+			std::vector<MyVector> vec;
+			std::vector<MyVector> ans;
+			int length = userCommand->Length;
+			vec.resize(length - 1);
+			for (int i = 1; i < length; ++i)
+			{
+				command = ToString_Sys2Std(userCommand[i]);
+
+				if (findVector(command, vec[i - 1]) || queryVector(command, vec[i - 1]))
+				{
+					//nothing to do
+				}
+				else
+				{
+					throw std::string("Vector not found");
+				}
+			}
+			ans = ob(vec);
+			System::String^ result;
+			result = PrintMultipleVector(vec);
+			return result;
+		}
+		else
+		{
+			throw std::string("Error: Wrong command");
+		}
 		}
 		//反之則判斷找不到指令
 		else

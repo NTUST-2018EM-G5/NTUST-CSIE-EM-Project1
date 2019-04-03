@@ -337,12 +337,12 @@ bool MyVector::isLI(const MyVector& b)
 	return false;
 }
 
-int MyVector::GetSize()
+int MyVector::GetSize() const
 {
 	return this->Data.size();
 }
 
-System::String^ MyVector::PrintData()
+System::String^ MyVector::PrintData() const
 {
 	System::String^ result = "[";
 	int i;
@@ -354,7 +354,7 @@ System::String^ MyVector::PrintData()
 	return result;
 }
 
-System::String^ MyVector::PrintData(std::string format)
+System::String^ MyVector::PrintData(std::string format) const
 {
 	System::String^ result = "[";
 	System::String^ formatStr = gcnew System::String(format.c_str());
@@ -364,5 +364,23 @@ System::String^ MyVector::PrintData(std::string format)
 		result += this->Data[i].ToString(formatStr) + ",";
 	}
 	result += this->Data[i].ToString(formatStr) + "]\r\n";
+	return result;
+}
+
+std::vector<MyVector> ob(const std::vector<MyVector>& vec)
+{
+	std::vector<MyVector> result;
+	//TODO: ob
+	result = vec;
+	return result;
+}
+
+System::String^ PrintMultipleVector(const std::vector<MyVector>& vec)
+{
+	System::String^ result;
+	for (int i = 0; i < vec.size(); ++i)
+	{
+		result += vec.at(i).PrintData();
+	}
 	return result;
 }
