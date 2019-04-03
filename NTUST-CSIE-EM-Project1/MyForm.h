@@ -148,11 +148,10 @@ namespace NTUSTCSIEEMProject1 {
 				 // Input
 				 // 
 				 this->Input->Dock = System::Windows::Forms::DockStyle::Fill;
-				 this->Input->Location = System::Drawing::Point(4, 600);
-				 this->Input->Margin = System::Windows::Forms::Padding(4);
+				 this->Input->Location = System::Drawing::Point(3, 400);
 				 this->Input->Multiline = true;
 				 this->Input->Name = L"Input";
-				 this->Input->Size = System::Drawing::Size(1170, 231);
+				 this->Input->Size = System::Drawing::Size(779, 154);
 				 this->Input->TabIndex = 10;
 				 this->Input->TextChanged += gcnew System::EventHandler(this, &MyForm::Input_TextChanged);
 				 // 
@@ -161,10 +160,9 @@ namespace NTUSTCSIEEMProject1 {
 				 this->InputLabel->AutoSize = true;
 				 this->InputLabel->Font = (gcnew System::Drawing::Font(L"微軟正黑體", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(136)));
-				 this->InputLabel->Location = System::Drawing::Point(4, 571);
-				 this->InputLabel->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+				 this->InputLabel->Location = System::Drawing::Point(3, 380);
 				 this->InputLabel->Name = L"InputLabel";
-				 this->InputLabel->Size = System::Drawing::Size(57, 23);
+				 this->InputLabel->Size = System::Drawing::Size(41, 16);
 				 this->InputLabel->TabIndex = 9;
 				 this->InputLabel->Text = L"Input";
 				 // 
@@ -172,11 +170,10 @@ namespace NTUSTCSIEEMProject1 {
 				 // 
 				 this->VectorList->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->VectorList->FormattingEnabled = true;
-				 this->VectorList->ItemHeight = 18;
-				 this->VectorList->Location = System::Drawing::Point(4, 337);
-				 this->VectorList->Margin = System::Windows::Forms::Padding(4);
+				 this->VectorList->ItemHeight = 12;
+				 this->VectorList->Location = System::Drawing::Point(3, 225);
 				 this->VectorList->Name = L"VectorList";
-				 this->VectorList->Size = System::Drawing::Size(1170, 230);
+				 this->VectorList->Size = System::Drawing::Size(779, 152);
 				 this->VectorList->TabIndex = 4;
 				 // 
 				 // VectorLabel
@@ -184,10 +181,9 @@ namespace NTUSTCSIEEMProject1 {
 				 this->VectorLabel->AutoSize = true;
 				 this->VectorLabel->Font = (gcnew System::Drawing::Font(L"微軟正黑體", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(136)));
-				 this->VectorLabel->Location = System::Drawing::Point(4, 308);
-				 this->VectorLabel->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+				 this->VectorLabel->Location = System::Drawing::Point(3, 205);
 				 this->VectorLabel->Name = L"VectorLabel";
-				 this->VectorLabel->Size = System::Drawing::Size(67, 23);
+				 this->VectorLabel->Size = System::Drawing::Size(47, 16);
 				 this->VectorLabel->TabIndex = 6;
 				 this->VectorLabel->Text = L"Vector";
 				 // 
@@ -196,12 +192,11 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Output->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->Output->Font = (gcnew System::Drawing::Font(L"新細明體", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(136)));
-				 this->Output->Location = System::Drawing::Point(4, 74);
-				 this->Output->Margin = System::Windows::Forms::Padding(4);
+				 this->Output->Location = System::Drawing::Point(3, 50);
 				 this->Output->Multiline = true;
 				 this->Output->Name = L"Output";
 				 this->Output->ReadOnly = true;
-				 this->Output->Size = System::Drawing::Size(1170, 230);
+				 this->Output->Size = System::Drawing::Size(779, 152);
 				 this->Output->TabIndex = 2;
 				 // 
 				 // OutputLabel
@@ -209,10 +204,9 @@ namespace NTUSTCSIEEMProject1 {
 				 this->OutputLabel->AutoSize = true;
 				 this->OutputLabel->Font = (gcnew System::Drawing::Font(L"微軟正黑體", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(136)));
-				 this->OutputLabel->Location = System::Drawing::Point(4, 45);
-				 this->OutputLabel->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+				 this->OutputLabel->Location = System::Drawing::Point(3, 30);
 				 this->OutputLabel->Name = L"OutputLabel";
-				 this->OutputLabel->Size = System::Drawing::Size(73, 23);
+				 this->OutputLabel->Size = System::Drawing::Size(52, 16);
 				 this->OutputLabel->TabIndex = 5;
 				 this->OutputLabel->Text = L"Output";
 				 // 
@@ -226,7 +220,7 @@ namespace NTUSTCSIEEMProject1 {
 				 });
 				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
 				 this->toolStrip1->Name = L"toolStrip1";
-				 this->toolStrip1->Size = System::Drawing::Size(1178, 45);
+				 this->toolStrip1->Size = System::Drawing::Size(785, 30);
 				 this->toolStrip1->TabIndex = 5;
 				 this->toolStrip1->Text = L"toolStrip1";
 				 // 
@@ -235,7 +229,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnLoadVector->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadVector.Image")));
 				 this->btnLoadVector->ImageTransparentColor = System::Drawing::Color::Magenta;
 				 this->btnLoadVector->Name = L"btnLoadVector";
-				 this->btnLoadVector->Size = System::Drawing::Size(135, 42);
+				 this->btnLoadVector->Size = System::Drawing::Size(101, 27);
 				 this->btnLoadVector->Text = L"LoadVector";
 				 this->btnLoadVector->Click += gcnew System::EventHandler(this, &MyForm::btnLoadVector_Click);
 				 // 
@@ -244,16 +238,17 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnLoadMatrix->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnLoadMatrix.Image")));
 				 this->btnLoadMatrix->ImageTransparentColor = System::Drawing::Color::Magenta;
 				 this->btnLoadMatrix->Name = L"btnLoadMatrix";
-				 this->btnLoadMatrix->Size = System::Drawing::Size(134, 42);
+				 this->btnLoadMatrix->Size = System::Drawing::Size(100, 27);
 				 this->btnLoadMatrix->Text = L"LoadMatrix";
 				 this->btnLoadMatrix->ToolTipText = L"LoadMatrix";
+				 this->btnLoadMatrix->Click += gcnew System::EventHandler(this, &MyForm::btnLoadMatrix_Click);
 				 // 
 				 // btnClear
 				 // 
 				 this->btnClear->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClear.Image")));
 				 this->btnClear->ImageTransparentColor = System::Drawing::Color::Magenta;
 				 this->btnClear->Name = L"btnClear";
-				 this->btnClear->Size = System::Drawing::Size(82, 42);
+				 this->btnClear->Size = System::Drawing::Size(64, 27);
 				 this->btnClear->Text = L"Clear";
 				 this->btnClear->Click += gcnew System::EventHandler(this, &MyForm::btnClear_Click);
 				 // 
@@ -262,7 +257,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnHint->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnHint.Image")));
 				 this->btnHint->ImageTransparentColor = System::Drawing::Color::Magenta;
 				 this->btnHint->Name = L"btnHint";
-				 this->btnHint->Size = System::Drawing::Size(75, 42);
+				 this->btnHint->Size = System::Drawing::Size(58, 27);
 				 this->btnHint->Text = L"Hint";
 				 // 
 				 // tableLayoutPanel1
@@ -279,26 +274,24 @@ namespace NTUSTCSIEEMProject1 {
 				 this->tableLayoutPanel1->Controls->Add(this->Input, 0, 6);
 				 this->tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->tableLayoutPanel1->Location = System::Drawing::Point(0, 0);
-				 this->tableLayoutPanel1->Margin = System::Windows::Forms::Padding(4);
 				 this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 				 this->tableLayoutPanel1->RowCount = 7;
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 45)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 30)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 25)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
-				 this->tableLayoutPanel1->Size = System::Drawing::Size(1178, 835);
+				 this->tableLayoutPanel1->Size = System::Drawing::Size(785, 557);
 				 this->tableLayoutPanel1->TabIndex = 2;
 				 // 
 				 // MyForm
 				 // 
-				 this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
+				 this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 				 this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-				 this->ClientSize = System::Drawing::Size(1178, 835);
+				 this->ClientSize = System::Drawing::Size(785, 557);
 				 this->Controls->Add(this->tableLayoutPanel1);
-				 this->Margin = System::Windows::Forms::Padding(4);
 				 this->Name = L"MyForm";
 				 this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 				 this->Text = L"P1_G5";
@@ -316,6 +309,11 @@ namespace NTUSTCSIEEMProject1 {
 	{
 	}
 	private: System::Void btnLoadVector_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		//開啟Dialog
+		openFileDialog1->ShowDialog();
+	}
+	private: System::Void btnLoadMatrix_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		//開啟Dialog
 		openFileDialog1->ShowDialog();
@@ -389,5 +387,6 @@ namespace NTUSTCSIEEMProject1 {
 		Input->Clear();
 		Output->Clear();
 	}
+
 };
 }

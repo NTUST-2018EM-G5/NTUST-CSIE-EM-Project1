@@ -89,13 +89,13 @@ bool DataManager::LoadVectorData()
 				//存入矩陣資料
 				tempMatrix.SetData(tempMatrixData);
 				//定義矩陣變數名稱，依VectorVariableIndex變數作名稱的控管
-				std::string matrixVariableTemp = "$M" + std::to_string(VectorVariableIndex);
+				std::string matrixVariableTemp = "$M" + std::to_string(MatrixVariableIndex);
 				//存入矩陣變數名稱
 				tempMatrix.SetName(matrixVariableTemp);
 				//存入矩陣
 				this->Matrixs.push_back(tempMatrix);
 				//遞增VectorVariableIndex，以確保變數名稱不重複
-				this->VectorVariableIndex++;
+				this->MatrixVariableIndex++;
 				//清除矩陣資料暫存
 				tempVectorData.clear();
 				//遞增currentLoadVectorID，標記到當前讀取矩陣ID
