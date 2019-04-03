@@ -327,6 +327,7 @@ MyVector MyVector::pN(const MyVector& b)
 {
 	MyVector result;
 	//TODO: pN
+	result = this->cross(b);
 	return result;
 }
 
