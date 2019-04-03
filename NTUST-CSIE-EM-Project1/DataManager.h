@@ -36,6 +36,10 @@ private:
 	std::vector<MyMatrix> Matrixs;
 	//紀錄向量ID，用於控管
 	int  VectorVariableIndex;
+	//紀錄矩陣ID，用於控管
+	int  MatrixVariableIndex;
+	//紀錄目前是向量還是矩陣
+	int Status;
 	//紀錄檔案路徑名稱
 	std::string FileName;
 };
