@@ -529,20 +529,28 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "isLI")
 		{
-			if (userCommand->Length == 3)
+			if (userCommand->Length >= 3)
 			{
-				std::string command1 = ToString_Sys2Std(userCommand[1]);
-				std::string command2 = ToString_Sys2Std(userCommand[2]);
-				MyVector vec_a, vec_b;
-				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
+				std::string command;
+				std::vector<MyVector> vec;
+				int length = userCommand->Length;
+				vec.resize(length);
+				for (int i = 1; i < length; ++i)
 				{
-					System::String^ result = (vec_a.isLI(vec_b) ? "Yes" : "No") + Environment::NewLine;
-					return result;
+					command = ToString_Sys2Std(userCommand[i]);
+
+					if (findVector(command, vec[i]) || queryVector(command, vec[i]))
+					{
+						//TODO: ³B²zisLI function
+					}
+					else
+					{
+						throw std::string("Vector not found");
+					}
 				}
-				else
-				{
-					throw std::string("Error: Vector not found");
-				}
+				
+				System::String^ result = "Yes" + Environment::NewLine;
+				return result;
 			}
 			else
 			{
