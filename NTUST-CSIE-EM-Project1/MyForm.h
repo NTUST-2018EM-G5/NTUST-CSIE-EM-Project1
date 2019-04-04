@@ -95,6 +95,7 @@ namespace NTUSTCSIEEMProject1 {
 	private: System::Windows::Forms::ToolStripButton^  btnHint;
 	private: System::Windows::Forms::ToolStripButton^  btnClear;
 	private: System::Windows::Forms::TableLayoutPanel^  tableLayoutPanel1;
+	private: System::Windows::Forms::ToolStripButton^  btnReset;
 
 
 
@@ -134,6 +135,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->OutputLabel = (gcnew System::Windows::Forms::Label());
 				 this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 				 this->btnLoad = (gcnew System::Windows::Forms::ToolStripButton());
+				 this->btnReset = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnClear = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->btnHint = (gcnew System::Windows::Forms::ToolStripButton());
 				 this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
@@ -152,6 +154,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Input->Location = System::Drawing::Point(3, 400);
 				 this->Input->Multiline = true;
 				 this->Input->Name = L"Input";
+				 this->Input->ScrollBars = System::Windows::Forms::ScrollBars::Both;
 				 this->Input->Size = System::Drawing::Size(779, 154);
 				 this->Input->TabIndex = 10;
 				 this->Input->TextChanged += gcnew System::EventHandler(this, &MyForm::Input_TextChanged);
@@ -197,6 +200,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Output->Multiline = true;
 				 this->Output->Name = L"Output";
 				 this->Output->ReadOnly = true;
+				 this->Output->ScrollBars = System::Windows::Forms::ScrollBars::Both;
 				 this->Output->Size = System::Drawing::Size(779, 152);
 				 this->Output->TabIndex = 2;
 				 // 
@@ -215,9 +219,9 @@ namespace NTUSTCSIEEMProject1 {
 				 // 
 				 this->toolStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->toolStrip1->ImageScalingSize = System::Drawing::Size(24, 24);
-				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
-					 this->btnLoad, this->btnClear,
-						 this->btnHint
+				 this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+					 this->btnLoad, this->btnReset,
+						 this->btnClear, this->btnHint
 				 });
 				 this->toolStrip1->Location = System::Drawing::Point(0, 0);
 				 this->toolStrip1->Name = L"toolStrip1";
@@ -233,6 +237,15 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnLoad->Size = System::Drawing::Size(64, 27);
 				 this->btnLoad->Text = L"Load";
 				 this->btnLoad->Click += gcnew System::EventHandler(this, &MyForm::btnLoad_Click);
+				 // 
+				 // btnReset
+				 // 
+				 this->btnReset->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnReset.Image")));
+				 this->btnReset->ImageTransparentColor = System::Drawing::Color::Magenta;
+				 this->btnReset->Name = L"btnReset";
+				 this->btnReset->Size = System::Drawing::Size(66, 27);
+				 this->btnReset->Text = L"Reset";
+				 this->btnReset->Click += gcnew System::EventHandler(this, &MyForm::btnReset_Click);
 				 // 
 				 // btnClear
 				 // 
@@ -285,7 +298,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Controls->Add(this->tableLayoutPanel1);
 				 this->Name = L"MyForm";
 				 this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-				 this->Text = L"P1_G5";
+				 this->Text = L"P1_G5_V1";
 				 this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 				 this->toolStrip1->ResumeLayout(false);
 				 this->toolStrip1->PerformLayout();
@@ -417,6 +430,11 @@ namespace NTUSTCSIEEMProject1 {
 	}
 	private: System::Void btnClear_Click(System::Object^ sender, System::EventArgs^  e) 
 	{
+		Input->Clear();
+		Output->Clear();
+	}
+	private: System::Void btnReset_Click(System::Object^  sender, System::EventArgs^  e)
+	{
 		//資料清除
 		dataManager->Clear();
 
@@ -425,6 +443,7 @@ namespace NTUSTCSIEEMProject1 {
 		Input->Clear();
 		Output->Clear();
 	}
+
 
 };
 }
