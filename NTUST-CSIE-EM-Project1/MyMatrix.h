@@ -16,7 +16,15 @@ class MyMatrix
 
 		//--Function--
 		int rank() const;
-
+		MyMatrix trans() const;
+		//TODO: solve
+		//TODO: det
+		//TODO: inverse
+		//TODO: adj
+		//TODO: eigen
+		//TODO: pm
+		//TODO: leastSquare
+		//TODO: rref
 
 		//--Operator overloading--
 		MyMatrix operator+(const MyMatrix&);

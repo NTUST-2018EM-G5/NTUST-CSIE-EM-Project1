@@ -38,6 +38,19 @@ int MyMatrix::rank() const
 	return 0;
 }
 
+MyMatrix MyMatrix::trans() const
+{
+	MyMatrix result(this->cols(), this->rows());
+	for (int i = 0; i < this->rows(); ++i)
+	{
+		for (int j = 0; j < this->cols(); ++j)
+		{
+			result.InsertData(j, i, this->Data.at(i).at(j));
+		}
+	}
+	return result;
+}
+
 MyMatrix MyMatrix::operator+(const MyMatrix& b)
 {
 	if (this->rows() == b.rows() && this->cols() == b.cols())

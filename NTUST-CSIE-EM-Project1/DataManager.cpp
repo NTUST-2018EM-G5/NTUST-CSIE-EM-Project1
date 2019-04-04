@@ -754,35 +754,67 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "ob")
 		{
-		if (userCommand->Length >= 3)
-		{
-			std::string command;
-			std::vector<MyVector> vec;
-			std::vector<MyVector> ans;
-			int length = userCommand->Length;
-			vec.resize(length - 1);
-			for (int i = 1; i < length; ++i)
+			if (userCommand->Length >= 3)
 			{
-				command = ToString_Sys2Std(userCommand[i]);
-
-				if (findVector(command, vec[i - 1]) || queryVector(command, vec[i - 1]))
+				std::string command;
+				std::vector<MyVector> vec;
+				std::vector<MyVector> ans;
+				int length = userCommand->Length;
+				vec.resize(length - 1);
+				for (int i = 1; i < length; ++i)
 				{
-					//nothing to do
+					command = ToString_Sys2Std(userCommand[i]);
+
+					if (findVector(command, vec[i - 1]) || queryVector(command, vec[i - 1]))
+					{
+						//nothing to do
+					}
+					else
+					{
+						throw std::string("Vector not found");
+					}
+				}
+				ans = ob(vec);
+				System::String^ result;
+				result = PrintMultipleVector(vec);
+				return result;
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "rank")
+		{
+			if (userCommand->Length == 2)
+			{
+				//TODO: rank
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "trans")
+		{
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a, mat_b;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.trans().PrintData();
+					return result;
 				}
 				else
 				{
-					throw std::string("Vector not found");
+					throw std::string("Error: Vector not found");
 				}
 			}
-			ans = ob(vec);
-			System::String^ result;
-			result = PrintMultipleVector(vec);
-			return result;
-		}
-		else
-		{
-			throw std::string("Error: Wrong command");
-		}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		//反之則判斷找不到指令
 		else

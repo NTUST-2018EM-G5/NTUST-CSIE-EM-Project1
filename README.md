@@ -99,7 +99,7 @@ struct Vector
 - [x] Matrix addition & subtraction (2%)
 - [x] Matrix Multiplication (2%)
 - [ ] Rank of Matrix (5%)
-- [ ] Matrix Transpose (2%)
+- [x] Matrix Transpose (2%)
 - [ ] Solve Linear System (10%)
 - [ ] Determinants of Matrix (3%)
 - [ ] Inverse Matrix (6%)
