@@ -123,8 +123,6 @@ bool DataManager::LoadVectorData()
 	}
 }
 
-
-
 std::vector<MyVector> DataManager::GetVectors()
 {
 	return Vectors;
@@ -187,7 +185,6 @@ MyVector cal(char op, MyVector p1, MyVector p2)
 
 bool DataManager::queryVector(std::string query, MyVector& result)
 {
-	//TODO: 中序轉後序處理
 	char stack[999] = { '\0' };
 	std:string newquery;
 	int i,top;
@@ -285,6 +282,106 @@ bool DataManager::queryVector(std::string query, MyVector& result)
 	}
 }
 
+bool DataManager::findMatrix(std::string name, MyMatrix& result)
+{
+	//透過for迴圈，從矩陣資料中找出對應變數
+	for (unsigned int i = 0; i < this->Matrixs.size(); i++)
+	{
+		//若變數名稱與指令變數名稱符合
+		if (name == this->Matrixs[i].GetName())
+		{
+			result = this->Matrixs[i];
+			return true;
+		}
+	}
+	return false;
+}
+
+bool DataManager::queryMatrix(std::string query, MyMatrix& result)
+{
+	char stack[999] = { '\0' };
+	std:string newquery;
+	int i, top;
+	for (i = 0, top = 0; query[i] != '\0'; i++) switch (query[i])
+	{
+	case '(':              // 運算子堆疊
+		stack[++top] = query[i];
+		break;
+	case '+': case '-': case '*': case '/':
+		while (priority(stack[top]) >= priority(query[i]))
+		{
+			newquery += stack[top--];
+		}
+		stack[++top] = query[i]; // 存入堆疊
+		break;
+	case ')':
+		while (stack[top] != '(') // 遇 ) 輸出至 (
+		{
+			newquery += stack[top--];
+		}
+		top--;  // 不輸出 (
+		break;
+	default:  // 運算元直接輸出
+		newquery += query[i];
+	}
+	while (top > 0)
+	{
+		newquery += stack[top--];
+	}
+	//-----------------
+	vector<string> stack2;
+	int j, top2, tempmatrixCount = 0;
+	MyMatrix temp1, temp2, tempmatrix;
+	for (j = 0, top2 = -1; newquery[j] != '\0'; j++) switch (newquery[j])
+	{
+		case '+': case '-': case '*':
+			if (!this->findMatrix(stack2[top2 - 1], temp1)) { throw std::string("Error: Matrix not found"); };
+			if (!this->findMatrix(stack2[top2], temp2)) { throw std::string("Error: Matrix not found"); };
+			if (newquery[j] == '+')
+			{
+				tempmatrix = temp1 + temp2;
+			}
+			else if (newquery[j] == '-')
+			{
+				tempmatrix = temp1 - temp2;
+			}
+			else if (newquery[j] == '*')
+			{
+				tempmatrix = temp1 * temp2;
+			}
+			tempmatrix.SetName("$TEMPP" + to_string(tempmatrixCount));
+			this->Matrixs.push_back(tempmatrix);
+			stack2.pop_back();
+			stack2.pop_back();
+			stack2.push_back("$TEMPP" + to_string(tempmatrixCount));
+			tempmatrixCount++;
+			top2--;
+			break;
+		case '$':
+			top2++;
+			stack2.push_back("");
+		default:
+			stack2[top2] += newquery[j];
+	}
+
+	if (this->findMatrix(stack2[0], result))
+	{
+		for (int k = 0; k < tempmatrixCount; k++)
+		{
+			this->Matrixs.pop_back();
+		}
+		return true;
+	}
+	else
+	{
+		for (int k = 0; k < tempmatrixCount; k++)
+		{
+			this->Matrixs.pop_back();
+		}
+		return false;
+	}
+}
+
 System::String^ DataManager::CommandEvent(System::String^ command)
 {
 	System::String^ result;
@@ -296,60 +393,94 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		//輸入Vector指令
 		if (userCommand[0] == "print")
 		{
-			if (userCommand->Length == 2)
+			if (this->Status == 1) //VECTOR
 			{
-				//定義輸出暫存
-				String^ outputTemp = "";
-
-				//從向量資料中找出對應變數
-				MyVector vec;
-				//若變數名稱與指令變數名稱符合
-				if (findVector(ToString_Sys2Std(userCommand[1]), vec))
+				if (userCommand->Length == 2)
 				{
-					//將輸出格式存入暫存
-					outputTemp += "[";
-					//將輸出資料存入暫存
-					for (unsigned int j = 0; j < vec.GetSize(); j++)
+					//定義輸出暫存
+					String^ outputTemp = "";
+
+					//從向量資料中找出對應變數
+					MyVector vec;
+					//若變數名稱與指令變數名稱符合
+					if (findVector(ToString_Sys2Std(userCommand[1]), vec))
 					{
-						outputTemp += vec[j].ToString();
-						if (j != vec.GetSize() - 1)outputTemp += ",";
+						//將輸出格式存入暫存
+						outputTemp += "[";
+						//將輸出資料存入暫存
+						for (unsigned int j = 0; j < vec.GetSize(); j++)
+						{
+							outputTemp += vec[j].ToString();
+							if (j != vec.GetSize() - 1)outputTemp += ",";
+						}
+						//將輸出格式存入暫存，並且換行
+						outputTemp += "]" + Environment::NewLine;
+						//輸出暫存資訊
+						result += gcnew String(vec.GetName().c_str()) + " = " + outputTemp;
 					}
-					//將輸出格式存入暫存，並且換行
-					outputTemp += "]" + Environment::NewLine;
-					//輸出暫存資訊
-					result += gcnew String(vec.GetName().c_str()) + " = " + outputTemp;
+					else
+					{
+						throw std::string("Error: Vector not found");
+					}
 				}
 				else
 				{
-					throw std::string("Error: Vector not found");
+					throw std::string("Error: Wrong command");
 				}
 			}
-			else
+			else if (this->Status == 2) //MATRIX
 			{
-				throw std::string("Error: Wrong command");
+				//TODO: print matrix
 			}
+			
 		}
 		else if (userCommand[0] == "run")
 		{
-			if (userCommand->Length == 2)
+			if (this->Status == 1) //VECTOR
 			{
-				std::string command1 = ToString_Sys2Std(userCommand[1]);
-				MyVector vec_a;
-				if (queryVector(command1, vec_a))
+				if (userCommand->Length == 2)
 				{
-					System::String^ result = vec_a.PrintData();
-					
-					return result;
+					std::string command1 = ToString_Sys2Std(userCommand[1]);
+					MyVector vec_a;
+					if (queryVector(command1, vec_a))
+					{
+						System::String^ result = vec_a.PrintData();
+
+						return result;
+					}
+					else
+					{
+						throw std::string("Error: Vector not found");
+					}
 				}
 				else
 				{
-					throw std::string("Error: Vector not found");
+					throw std::string("Error: Wrong command");
 				}
 			}
-			else
+			else if (this->Status == 2) //MATRIX
 			{
-				throw std::string("Error: Wrong command");
+				if (userCommand->Length == 2)
+				{
+					std::string command1 = ToString_Sys2Std(userCommand[1]);
+					MyMatrix mat_a;
+					if (queryMatrix(command1, mat_a))
+					{
+						System::String^ result = mat_a.PrintData();
+
+						return result;
+					}
+					else
+					{
+						throw std::string("Error: Matrix not found");
+					}
+				}
+				else
+				{
+					throw std::string("Error: Wrong command");
+				}
 			}
+			
 		}
 		else if (userCommand[0] == "dot")
 		{

@@ -32,6 +32,10 @@ public:
 	bool findVector(std::string, MyVector&);
 	//以運算式算向量
 	bool queryVector(std::string, MyVector&);
+	//以名稱尋找矩陣
+	bool findMatrix(std::string, MyMatrix&);
+	//以運算式算矩陣
+	bool queryMatrix(std::string, MyMatrix&);
 	//輸入指令，回傳結果
 	System::String^ CommandEvent(System::String^);
 	
