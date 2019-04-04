@@ -41,7 +41,7 @@ public:
 	std::string GetName();
 	void SetName(std::string);
 	void InsertValue(long double);
-	int GetSize();
+	int GetSize() const;
 	System::String^ PrintData();
 	System::String^ PrintData(std::string);
 

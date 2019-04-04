@@ -336,9 +336,9 @@ bool MyVector::isLI(const MyVector& b)
 	return false;
 }
 
-int MyVector::GetSize()
+int MyVector::GetSize() const
 {
-	return this->Data.size();
+	return (int)this->Data.size();
 }
 
 System::String^ MyVector::PrintData()
