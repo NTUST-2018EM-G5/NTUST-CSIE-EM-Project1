@@ -10,11 +10,12 @@ class MyMatrix
 	public:
 		//--Constructr--
 		MyMatrix();
+		MyMatrix(int, int);
 		MyMatrix(std::string, int, int);
 		MyMatrix(std::string, std::vector<std::vector<long double>>);
 
 		//--Function--
-		int rank();
+		int rank() const;
 
 
 		//--Operator overloading--
@@ -22,10 +23,15 @@ class MyMatrix
 		MyMatrix operator-(const MyMatrix&);
 		MyMatrix operator*(const MyMatrix&);
 
-		//--Information--
-		int rows();
-		int cols();
-		
+		//--Setting--
+		int rows() const;
+		int cols() const;
+		std::vector<std::vector<long double>> GetData();
+		void SetData(std::vector<std::vector<long double>>);
+		void InsertData(int, int, long double);
+		std::string GetName();
+		void SetName(std::string);
+
 
 	private:
 		std::vector<std::vector<long double>> Data;

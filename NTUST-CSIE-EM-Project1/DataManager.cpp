@@ -2,7 +2,23 @@
 
 DataManager::DataManager()
 {
-	VectorVariableIndex = 0;
+	Status = 0;
+	VariableIndex = 0;
+}
+
+const bool DataManager::SetStatus(int status)
+{
+	if (this->Status != 0 && this->Status != status)
+	{
+		return false;
+	}
+	this->Status = status;
+	return true;
+}
+
+int DataManager::GetStatus() const
+{
+	return this->Status;
 }
 
 bool DataManager::LoadVectorData()
@@ -17,10 +33,10 @@ bool DataManager::LoadVectorData()
 	}
 	else
 	{
-		//標記當前讀取向量ID
-		int currentLoadVectorID = 0;
 		//定義向量資料暫存變數
 		std::vector<long double> tempVectorData;
+		//定義向量資料暫存變數
+		std::vector<std::vector<long double>> tempMatrixData;
 		//定義讀取檔案字串暫存變數
 		std::string tempSring;
 		//從檔案讀取字串，解析掉向量總數
@@ -34,6 +50,9 @@ bool DataManager::LoadVectorData()
 			//解析到向量標記"V"
 			if (tempSring == "V")
 			{
+				//確認目前資料都是向量
+				if (!this->SetStatus(1))return false;
+
 				int count;
 				fin >> count;
 				for (int i = 0; i < count; ++i)
@@ -50,27 +69,70 @@ bool DataManager::LoadVectorData()
 				MyVector tempVector;
 				//存入向量資料
 				tempVector.SetData(tempVectorData);
-				//定義向量變數名稱，依VectorVariableIndex變數作名稱的控管
-				std::string vectorVariableTemp = "$V" + std::to_string(VectorVariableIndex);
+				//定義向量變數名稱，依VariableIndex變數作名稱的控管
+				std::string vectorVariableTemp = "$V" + std::to_string(VariableIndex);
 				//存入向量變數名稱
 				tempVector.SetName(vectorVariableTemp);
 				//存入向量
 				Vectors.push_back(tempVector);
-				//遞增VectorVariableIndex，以確保變數名稱不重複
-				VectorVariableIndex++;
+				//遞增VariableIndex，以確保變數名稱不重複
+				VariableIndex++;
 				//清除向量資料暫存
 				tempVectorData.clear();
-				//遞增currentLoadVectorID，標記到當前讀取向量ID
-				currentLoadVectorID++;
+			}
+			//解析到矩陣標記"M"
+			else if (tempSring == "M")
+			{
+				//確認目前資料都是矩陣
+				if (!this->SetStatus(2))return false;
+
+				int row, col;
+				fin >> row >> col;
+				tempMatrixData.clear();
+				tempMatrixData.resize(row);
+				for (int i = 0; i < row; ++i)
+				{
+					for (int j = 0; j < col; ++j)
+					{
+						fin >> tempSring;
+						//讀取矩陣資料，並將string轉為double
+						long double value;
+						value = (long double)strtod(tempSring.c_str(), NULL);
+						//將矩陣資料存入暫存
+						tempMatrixData.at(i).push_back(value);
+					}
+				}
+
+				//定義暫存矩陣資料結構
+				MyMatrix tempMatrix(row, col);
+				//存入矩陣資料
+				tempMatrix.SetData(tempMatrixData);
+				//定義矩陣變數名稱，依VariableIndex變數作名稱的控管
+				std::string matrixVariableTemp = "$M" + std::to_string(VariableIndex);
+				//存入矩陣變數名稱
+				tempMatrix.SetName(matrixVariableTemp);
+				//存入矩陣
+				this->Matrixs.push_back(tempMatrix);
+				//遞增VariableIndex，以確保變數名稱不重複
+				this->VariableIndex++;
+				//清除矩陣資料暫存
+				tempVectorData.clear();
 			}
 		}
 		return true;
 	}
 }
 
+
+
 std::vector<MyVector> DataManager::GetVectors()
 {
 	return Vectors;
+}
+
+std::vector<MyMatrix> DataManager::GetMatrixs()
+{
+	return Matrixs;
 }
 
 void DataManager::SetFileName(std::string fileName)
@@ -82,7 +144,9 @@ void DataManager::Clear()
 {
 	this->FileName = "";
 	this->Vectors.clear();
-	this->VectorVariableIndex = 0;
+	this->Matrixs.clear();
+	this->VariableIndex = 0;
+	this->Status = 0;
 }
 
 bool DataManager::findVector(std::string name, MyVector& result) 
