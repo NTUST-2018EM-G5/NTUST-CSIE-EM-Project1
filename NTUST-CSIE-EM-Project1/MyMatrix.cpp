@@ -146,3 +146,35 @@ void MyMatrix::SetName(std::string name)
 {
 	this->Name = name;
 }
+
+System::String^ MyMatrix::PrintData() const
+{
+	System::String^ result = "";
+	int i, j;
+	for (i = 0; i < this->rows(); ++i)
+	{
+		for (j = 0; j < this->cols() - 1; ++j)
+		{
+			result += this->Data.at(i).at(j).ToString() + ", ";
+		}
+		result += this->Data.at(i).at(j).ToString() + "\r\n";
+	}
+
+	return result;
+}
+
+System::String^ MyMatrix::PrintData(std::string format) const
+{
+	System::String^ result = "";
+	System::String^ formatStr = gcnew System::String(format.c_str());
+	int i, j;
+	for (i = 0; i < this->rows(); ++i)
+	{
+		for (j = 0; j < this->cols() - 1; ++j)
+		{
+			result += this->Data.at(i).at(j).ToString(formatStr) + ", ";
+		}
+		result += this->Data.at(i).at(j).ToString(formatStr) + "\r\n";
+	}
+	return result;
+}

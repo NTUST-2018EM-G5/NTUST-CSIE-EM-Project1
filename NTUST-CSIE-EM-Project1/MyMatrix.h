@@ -31,6 +31,8 @@ class MyMatrix
 		void InsertData(int, int, long double);
 		std::string GetName();
 		void SetName(std::string);
+		System::String^ PrintData() const;
+		System::String^ PrintData(std::string) const;
 
 
 	private:
