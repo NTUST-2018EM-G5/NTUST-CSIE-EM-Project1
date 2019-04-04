@@ -1,6 +1,7 @@
 #pragma once
 #include"DataManager.h"
 #include"DotNetUitilities.h"
+#include"HintForm.h"
 
 namespace NTUSTCSIEEMProject1 {
 	using namespace cli;
@@ -151,11 +152,11 @@ namespace NTUSTCSIEEMProject1 {
 				 // Input
 				 // 
 				 this->Input->Dock = System::Windows::Forms::DockStyle::Fill;
-				 this->Input->Location = System::Drawing::Point(3, 400);
+				 this->Input->Location = System::Drawing::Point(3, 464);
 				 this->Input->Multiline = true;
 				 this->Input->Name = L"Input";
 				 this->Input->ScrollBars = System::Windows::Forms::ScrollBars::Both;
-				 this->Input->Size = System::Drawing::Size(779, 154);
+				 this->Input->Size = System::Drawing::Size(779, 90);
 				 this->Input->TabIndex = 10;
 				 this->Input->TextChanged += gcnew System::EventHandler(this, &MyForm::Input_TextChanged);
 				 // 
@@ -164,7 +165,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->InputLabel->AutoSize = true;
 				 this->InputLabel->Font = (gcnew System::Drawing::Font(L"微軟正黑體", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(136)));
-				 this->InputLabel->Location = System::Drawing::Point(3, 380);
+				 this->InputLabel->Location = System::Drawing::Point(3, 444);
 				 this->InputLabel->Name = L"InputLabel";
 				 this->InputLabel->Size = System::Drawing::Size(41, 16);
 				 this->InputLabel->TabIndex = 9;
@@ -175,9 +176,9 @@ namespace NTUSTCSIEEMProject1 {
 				 this->VectorList->Dock = System::Windows::Forms::DockStyle::Fill;
 				 this->VectorList->FormattingEnabled = true;
 				 this->VectorList->ItemHeight = 12;
-				 this->VectorList->Location = System::Drawing::Point(3, 225);
+				 this->VectorList->Location = System::Drawing::Point(3, 352);
 				 this->VectorList->Name = L"VectorList";
-				 this->VectorList->Size = System::Drawing::Size(779, 152);
+				 this->VectorList->Size = System::Drawing::Size(779, 89);
 				 this->VectorList->TabIndex = 4;
 				 // 
 				 // DataLabel
@@ -185,7 +186,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->DataLabel->AutoSize = true;
 				 this->DataLabel->Font = (gcnew System::Drawing::Font(L"微軟正黑體", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(136)));
-				 this->DataLabel->Location = System::Drawing::Point(3, 205);
+				 this->DataLabel->Location = System::Drawing::Point(3, 332);
 				 this->DataLabel->Name = L"DataLabel";
 				 this->DataLabel->Size = System::Drawing::Size(36, 16);
 				 this->DataLabel->TabIndex = 6;
@@ -201,7 +202,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->Output->Name = L"Output";
 				 this->Output->ReadOnly = true;
 				 this->Output->ScrollBars = System::Windows::Forms::ScrollBars::Both;
-				 this->Output->Size = System::Drawing::Size(779, 152);
+				 this->Output->Size = System::Drawing::Size(779, 279);
 				 this->Output->TabIndex = 2;
 				 // 
 				 // OutputLabel
@@ -263,6 +264,7 @@ namespace NTUSTCSIEEMProject1 {
 				 this->btnHint->Name = L"btnHint";
 				 this->btnHint->Size = System::Drawing::Size(58, 27);
 				 this->btnHint->Text = L"Hint";
+				 this->btnHint->Click += gcnew System::EventHandler(this, &MyForm::btnHint_Click);
 				 // 
 				 // tableLayoutPanel1
 				 // 
@@ -282,11 +284,11 @@ namespace NTUSTCSIEEMProject1 {
 				 this->tableLayoutPanel1->RowCount = 7;
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 30)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 60)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 20)));
 				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 17)));
-				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 33.33333F)));
+				 this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 20)));
 				 this->tableLayoutPanel1->Size = System::Drawing::Size(785, 557);
 				 this->tableLayoutPanel1->TabIndex = 2;
 				 // 
@@ -445,5 +447,9 @@ namespace NTUSTCSIEEMProject1 {
 	}
 
 
+	private: System::Void btnHint_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
+		(gcnew NTUSTCSIEEMProject1::HintForm)->Show();
+	}
 };
 }

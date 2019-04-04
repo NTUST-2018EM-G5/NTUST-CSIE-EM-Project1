@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DotNetUitilities.cpp" />
+    <ClCompile Include="HintForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyMatrix.cpp" />
     <ClCompile Include="MyVector.cpp" />
@@ -144,6 +145,9 @@
   <ItemGroup>
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DotNetUitilities.h" />
+    <ClInclude Include="HintForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -151,6 +155,9 @@
     <ClInclude Include="MyVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HintForm.resx">
+      <DependentUpon>HintForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>

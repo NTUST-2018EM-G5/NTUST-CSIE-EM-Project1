@@ -96,8 +96,8 @@ struct Vector
 - [ ] Use Gram-schmidt to find orthonormal basis (5%)
 
 ### Matrix Operation
-- [ ] Matrix addition & subtraction (2%)
-- [ ] Matrix Multiplication (2%)
+- [x] Matrix addition & subtraction (2%)
+- [x] Matrix Multiplication (2%)
 - [ ] Rank of Matrix (5%)
 - [ ] Matrix Transpose (2%)
 - [ ] Solve Linear System (10%)
