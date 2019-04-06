@@ -26,6 +26,23 @@ MyMatrix::MyMatrix(std::string name, int row, int col)
 	}
 }
 
+MyMatrix::MyMatrix(std::vector<std::vector<long double>> vec)
+{
+	int row = vec.size();
+	int col = vec.at(0).size();
+	this->Data.resize(row);
+	for (int i = 0; i < row; ++i)
+	{
+		if (vec.at(i).size() != col) throw std::string("Error: These vector are different size cannot be matrix");
+		this->Data.at(i).resize(col);
+
+		for (int j = 0; j < col; ++j)
+		{
+			this->at(i, j) = vec.at(i)[j];
+		}
+	}
+}
+
 MyMatrix::MyMatrix(std::string name, std::vector<std::vector<long double>> data)
 {
 	this->Name = name;
@@ -34,8 +51,10 @@ MyMatrix::MyMatrix(std::string name, std::vector<std::vector<long double>> data)
 
 int MyMatrix::rank() const
 {
+	MyMatrix mat = *this;
+	int rank = this->rows();
 	//TODO: rank
-	return 0;
+	return rank;
 }
 
 MyMatrix MyMatrix::trans() const
@@ -49,6 +68,62 @@ MyMatrix MyMatrix::trans() const
 		}
 	}
 	return result;
+}
+
+long double MyMatrix::det() const
+{
+	if (this->cols() != this->rows())
+	{
+		throw std::string("Error: the matrix is not square");
+	}
+	else if (this->cols() == 2) 
+	{
+		return  this->at(0, 0) * this->at(1, 1) - this->at(0, 1) * this->at(1, 0);
+	}
+	else
+	{	
+		MyMatrix mat = *this;
+		long double scalar = 1.0;
+		for (int i = 0; i < mat.rows(); ++i)
+		{
+			if (mat.at(i, i) == 0)
+			{
+				bool flag = false;
+				for (int j = i + 1; j < mat.rows(); ++j)
+				{
+					if (mat.at(j, i) != 0)
+					{
+						mat.Data.at(i).swap(mat.Data.at(j));
+						flag = true;
+						scalar *= -1.0;
+						break;
+					}
+				}
+				if (!flag)return 0.0;
+			}
+
+			long double coef = mat.at(i, i);
+			scalar *= coef;
+			for (int j = i; j < mat.cols(); ++j)
+			{
+				mat.at(i, j) /= coef;
+			}
+			for (int j = i + 1; j < mat.rows(); ++j)
+			{
+				long double coef2 = mat.at(j, i);
+				for (int k = i; k < mat.cols(); ++k)
+				{
+					mat.at(j, k) -= mat.at(i, k)*coef2;
+				}
+			}
+		}
+		long double ans = scalar;
+		for (int j = 0; j < mat.rows(); ++j)
+		{
+			ans *= mat.at(j, j);
+		}
+		return ans;
+	}
 }
 
 MyMatrix MyMatrix::operator+(const MyMatrix& b)
@@ -135,7 +210,7 @@ int MyMatrix::cols() const
 	return (int)this->Data.at(0).size();
 }
 
-std::vector<std::vector<long double>> MyMatrix::GetData()
+std::vector<std::vector<long double>> MyMatrix::GetData() const
 {
 	return this->Data;
 }
@@ -150,7 +225,17 @@ void MyMatrix::InsertData(int row, int col, long double value)
 	this->Data.at(row).at(col) = value;
 }
 
-std::string MyMatrix::GetName()
+long double MyMatrix::at(int row, int col) const
+{
+	return this->Data.at(row).at(col);
+}
+
+long double& MyMatrix::at(int row, int col)
+{
+	return this->Data.at(row).at(col);
+}
+
+std::string MyMatrix::GetName() const
 {
 	return this->Name;
 }

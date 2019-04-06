@@ -4,6 +4,7 @@
 #include<fstream>
 #include<string>
 #include<cmath>
+#include"MyMatrix.h"
 #define M_PI 3.14159265358979323846
 
 //定義向量資料結構
@@ -33,7 +34,7 @@ public:
 	bool isOrthogonal(const MyVector&);
 	long double angle(const MyVector&);
 	MyVector pN(const MyVector&);
-	bool isLI(const MyVector&);
+	
 	
 	//--Setting--
 	std::vector<long double> GetData();
@@ -52,7 +53,7 @@ private:
 	std::vector<long double> Data;
 };
 
-
+bool isLI(const std::vector<MyVector>&);
 std::vector<MyVector> ob(const std::vector<MyVector>&);
 System::String^ PrintMultipleVector(const std::vector<MyVector>&);
 

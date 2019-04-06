@@ -736,7 +736,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 
 					if (findVector(command, vec[i - 1]) || queryVector(command, vec[i - 1]))
 					{
-						//TODO: 處理isLI function
+						//nothing to do
 					}
 					else
 					{
@@ -744,7 +744,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					}
 				}
 				
-				System::String^ result = "Yes" + Environment::NewLine;
+				System::String^ result = isLI(vec) ? "Yes\r\n" : "No\r\n";
 				return result;
 			}
 			else
@@ -815,6 +815,27 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			{
 				throw std::string("Error: Wrong command");
 			}
+		}
+		else if (userCommand[0] == "det")
+		{
+		if (userCommand->Length == 2)
+		{
+			std::string command1 = ToString_Sys2Std(userCommand[1]);
+			MyMatrix mat_a, mat_b;
+			if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+			{
+				System::String^ result = mat_a.det() + Environment::NewLine;
+				return result;
+			}
+			else
+			{
+				throw std::string("Error: Vector not found");
+			}
+		}
+		else
+		{
+			throw std::string("Error: Wrong command");
+		}
 		}
 		//反之則判斷找不到指令
 		else

@@ -331,12 +331,6 @@ MyVector MyVector::pN(const MyVector& b)
 	return result;
 }
 
-bool MyVector::isLI(const MyVector& b)
-{
-	//TODO: isLI
-	return false;
-}
-
 int MyVector::GetSize() const
 {
 	return (int)this->Data.size();
@@ -365,6 +359,23 @@ System::String^ MyVector::PrintData(std::string format) const
 	}
 	result += this->Data[i].ToString(formatStr) + "]\r\n";
 	return result;
+}
+
+bool isLI(const std::vector<MyVector>& vec)
+{
+	std::vector<std::vector<long double>> mat;
+	int row = vec.size();
+	mat.resize(row);
+	for (int i = 0; i < row; ++i)
+	{
+		MyVector tempVec = vec.at(i);
+		for (int j = 0; j < vec.at(i).GetSize(); ++j)
+		{
+			mat.at(i).push_back(tempVec[i]);
+		}
+	}
+	MyMatrix matrix(mat);
+	return abs(matrix.det()) < 0.000000001;
 }
 
 std::vector<MyVector> ob(const std::vector<MyVector>& vec)

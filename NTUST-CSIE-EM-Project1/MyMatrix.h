@@ -4,6 +4,7 @@
 #include<fstream>
 #include<string>
 #include<cmath>
+#include<algorithm>
 
 class MyMatrix
 {
@@ -12,19 +13,22 @@ class MyMatrix
 		MyMatrix();
 		MyMatrix(int, int);
 		MyMatrix(std::string, int, int);
+		MyMatrix(std::vector<std::vector<long double>>);
 		MyMatrix(std::string, std::vector<std::vector<long double>>);
 
 		//--Function--
 		int rank() const;
 		MyMatrix trans() const;
 		//TODO: solve
-		//TODO: det
+		long double det() const;
 		//TODO: inverse
 		//TODO: adj
 		//TODO: eigen
 		//TODO: pm
 		//TODO: leastSquare
 		//TODO: rref
+
+
 
 		//--Operator overloading--
 		MyMatrix operator+(const MyMatrix&);
@@ -34,10 +38,12 @@ class MyMatrix
 		//--Setting--
 		int rows() const;
 		int cols() const;
-		std::vector<std::vector<long double>> GetData();
+		std::vector<std::vector<long double>> GetData() const;
 		void SetData(std::vector<std::vector<long double>>);
 		void InsertData(int, int, long double);
-		std::string GetName();
+		long double at(int, int) const;
+		long double& at(int, int);
+		std::string GetName() const;
 		void SetName(std::string);
 		System::String^ PrintData() const;
 		System::String^ PrintData(std::string) const;
@@ -47,4 +53,3 @@ class MyMatrix
 		std::vector<std::vector<long double>> Data;
 		std::string Name;
 };
-
