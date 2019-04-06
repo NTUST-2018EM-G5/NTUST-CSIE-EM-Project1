@@ -92,8 +92,8 @@ struct Vector
 - [x] Orthogonal judgement (3%)
 - [x] The angle between two vectors(degree) (5%)
 - [x] The plane normal that is produced by two vectors (5%)
-- [ ] Linear independent judgement (10%)
-- [ ] Use Gram-schmidt to find orthonormal basis (5%)
+- [x] Linear independent judgement (10%)
+- [x] Use Gram-schmidt to find orthonormal basis (5%)
 
 ### Matrix Operation
 - [x] Matrix addition & subtraction (2%)
@@ -101,7 +101,7 @@ struct Vector
 - [ ] Rank of Matrix (5%)
 - [x] Matrix Transpose (2%)
 - [ ] Solve Linear System (10%)
-- [ ] Determinants of Matrix (3%)
+- [x] Determinants of Matrix (3%)
 - [ ] Inverse Matrix (6%)
 - [ ] Adjoint of Matrix (4%)
 - [ ] Eigen Vector and Eigen Value (10%) (all eigen vector and eigen value)
