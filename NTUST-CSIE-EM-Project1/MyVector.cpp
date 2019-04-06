@@ -59,7 +59,7 @@ MyVector MyVector::operator-(const MyVector& b)
 	{
 		throw std::string("Error: different size");
 	}
-	MyVector result = *this;
+	MyVector result;
 	for (int i = 0; i < this->Data.size(); ++i)
 	{
 		result.Data.push_back(this->Data[i] - b.Data[i]);
@@ -370,8 +370,28 @@ System::String^ MyVector::PrintData(std::string format) const
 std::vector<MyVector> ob(const std::vector<MyVector>& vec)
 {
 	std::vector<MyVector> result;
+	std::vector<MyVector> newvec;
 	//TODO: ob
-	result = vec;
+	if (vec.size() == vec[0].GetSize())
+	{
+		for (int i = 0; i < vec.size(); i++)
+		{
+			newvec.push_back(vec[i]);
+		}
+		for (int i = 1; i < vec.size(); i++)
+		{
+			for (int j = i-1; j >= 0; j--)
+			{
+				MyVector temp = newvec[i].proj(newvec[j]);
+				newvec[i] = newvec[i] - temp;
+			}
+		}
+		for (int i = 0; i < vec.size(); i++)
+		{
+			newvec[i] = newvec[i].normal();
+		}
+	}
+	result = newvec;
 	return result;
 }
 

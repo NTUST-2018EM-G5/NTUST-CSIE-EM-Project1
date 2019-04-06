@@ -776,7 +776,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				}
 				ans = ob(vec);
 				System::String^ result;
-				result = PrintMultipleVector(vec);
+				result = PrintMultipleVector(ans);
 				return result;
 			}
 			else
