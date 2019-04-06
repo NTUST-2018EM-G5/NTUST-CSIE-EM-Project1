@@ -335,7 +335,6 @@ namespace NTUSTCSIEEMProject1 {
 		//判斷輸入自元為'\n'，並防止取到字串-1位置
 		if (Input->Text->Length - 1 >= 0 && Input->Text[Input->Text->Length - 1] == '\n')
 		{
-			dataManager->CommandEvent(userInput);
 			Output->Text += dataManager->CommandEvent(userInput);
 		}
 		else
