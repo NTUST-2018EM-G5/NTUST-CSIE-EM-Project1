@@ -21,12 +21,13 @@ class MyMatrix
 		MyMatrix trans() const;
 		//TODO: solve
 		long double det() const;
-		//TODO: inverse
-		//TODO: adj
+		MyMatrix inverse() const;
+		MyMatrix adj() const;
 		//TODO: eigen
 		//TODO: pm
 		//TODO: leastSquare
 		//TODO: rref
+		long double cofactor(int,int) const;
 
 
 
@@ -47,9 +48,12 @@ class MyMatrix
 		void SetName(std::string);
 		System::String^ PrintData() const;
 		System::String^ PrintData(std::string) const;
+		
 
 
 	private:
 		std::vector<std::vector<long double>> Data;
 		std::string Name;
 };
+
+

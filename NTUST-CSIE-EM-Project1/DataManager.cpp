@@ -788,7 +788,17 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		{
 			if (userCommand->Length == 2)
 			{
-				//TODO: rank
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a, mat_b;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.rank() + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
 			}
 			else
 			{
@@ -808,7 +818,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				}
 				else
 				{
-					throw std::string("Error: Vector not found");
+					throw std::string("Error: Matrix not found");
 				}
 			}
 			else
@@ -818,24 +828,66 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		}
 		else if (userCommand[0] == "det")
 		{
-		if (userCommand->Length == 2)
-		{
-			std::string command1 = ToString_Sys2Std(userCommand[1]);
-			MyMatrix mat_a, mat_b;
-			if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+			if (userCommand->Length == 2)
 			{
-				System::String^ result = mat_a.det() + Environment::NewLine;
-				return result;
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.det() + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
 			}
 			else
 			{
-				throw std::string("Error: Vector not found");
+				throw std::string("Error: Wrong command");
 			}
 		}
-		else
+		else if (userCommand[0] == "inverse")
 		{
-			throw std::string("Error: Wrong command");
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.inverse().PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
+		else if (userCommand[0] == "adj")
+		{
+			if (userCommand->Length == 2)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.adj().PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
 		}
 		//反之則判斷找不到指令
 		else

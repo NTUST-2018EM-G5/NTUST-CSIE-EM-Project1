@@ -54,6 +54,7 @@ int MyMatrix::rank() const
 	MyMatrix mat = *this;
 	int rank = this->rows();
 	//TODO: rank
+	
 	return rank;
 }
 
@@ -124,6 +125,57 @@ long double MyMatrix::det() const
 		}
 		return ans;
 	}
+}
+
+MyMatrix MyMatrix::inverse() const
+{
+	if (this->cols() != this->rows())
+	{
+		throw std::string("Error: the matrix is not square");
+	}
+	else
+	{
+		MyMatrix result;
+		//TODO: inverse
+		return result;
+	}
+}
+
+MyMatrix MyMatrix::adj() const
+{
+	int row = this->rows();
+	int col = this->cols();
+	MyMatrix result(row, col);
+	for (int i = 0; i < row; ++i)
+	{
+		for (int j = 0; j < col; ++j)
+		{
+			result.at(i, j) = pow(-1.0, i + j) * this->cofactor(j, i);
+		}
+	}
+	return result;
+}
+
+long double MyMatrix::cofactor(int row, int col) const
+{
+	MyMatrix mat(this->rows() - 1, this->cols() - 1);
+	int r = 0, c = 0;
+	for (int i = 0; i < this->rows(); ++i)
+	{
+		if (i != row)
+		{
+			c = 0;
+			for (int j = 0; j < this->cols(); ++j)
+			{
+				if (j != col)
+				{
+					mat.at(r, c++) = this->at(i, j);
+				}
+			}
+			r++;
+		}
+	}
+	return mat.det();
 }
 
 MyMatrix MyMatrix::operator+(const MyMatrix& b)
