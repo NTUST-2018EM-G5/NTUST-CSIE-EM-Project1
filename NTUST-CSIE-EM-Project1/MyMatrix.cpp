@@ -135,8 +135,17 @@ MyMatrix MyMatrix::inverse() const
 	}
 	else
 	{
-		MyMatrix result;
-		//TODO: inverse
+		MyMatrix result = this->adj();
+		int row = this->rows();
+		int col = this->cols();
+		long double det = 1.0 / this->det();
+		for (int i = 0; i < row; ++i)
+		{
+			for (int j = 0; j < col; ++j)
+			{
+				result.at(i, j) = det * result.at(i, j);
+			}
+		}
 		return result;
 	}
 }
@@ -303,11 +312,24 @@ System::String^ MyMatrix::PrintData() const
 	int i, j;
 	for (i = 0; i < this->rows(); ++i)
 	{
-		for (j = 0; j < this->cols() - 1; ++j)
+		for (j = 0; j < this->cols(); ++j)
 		{
-			result += this->Data.at(i).at(j).ToString() + ", ";
+			double val = this->Data.at(i).at(j);
+			if (!isfinite(val))
+			{
+				result += "INF";
+			}
+			else
+			{
+				result += val.ToString();
+			}
+			if (j != this->cols() - 1)
+			{
+				result += ", ";
+			}
+			
 		}
-		result += this->Data.at(i).at(j).ToString() + "\r\n";
+		result += "\r\n";
 	}
 
 	return result;
@@ -320,11 +342,24 @@ System::String^ MyMatrix::PrintData(std::string format) const
 	int i, j;
 	for (i = 0; i < this->rows(); ++i)
 	{
-		for (j = 0; j < this->cols() - 1; ++j)
+		for (j = 0; j < this->cols(); ++j)
 		{
-			result += this->Data.at(i).at(j).ToString(formatStr) + ", ";
+			double val = this->Data.at(i).at(j);
+			if (!isfinite(val))
+			{
+				result += "INF";
+			}
+			else
+			{
+				result += val.ToString(formatStr);
+			}
+			if (j != this->cols() - 1)
+			{
+				result += ", ";
+			}
+
 		}
-		result += this->Data.at(i).at(j).ToString(formatStr) + "\r\n";
+		result += "\r\n";
 	}
 	return result;
 }
