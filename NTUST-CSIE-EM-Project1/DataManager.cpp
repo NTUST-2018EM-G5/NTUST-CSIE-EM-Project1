@@ -826,6 +826,17 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				throw std::string("Error: Wrong command");
 			}
 		}
+		else if (userCommand[0] == "solve")
+		{
+			if (userCommand->Length == 3)
+			{
+				//TODO: solve
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
 		else if (userCommand[0] == "det")
 		{
 			if (userCommand->Length == 2)
@@ -883,6 +894,39 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				{
 					throw std::string("Error: Matrix not found");
 				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "eigen")
+		{
+			if (userCommand->Length == 2)
+			{
+				//TODO: eigen
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "pm")
+		{
+			if (userCommand->Length == 2)
+			{
+				//TODO: pm
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
+		else if (userCommand[0] == "rref")
+		{
+			if (userCommand->Length == 2)
+			{
+				//TODO: rref
 			}
 			else
 			{

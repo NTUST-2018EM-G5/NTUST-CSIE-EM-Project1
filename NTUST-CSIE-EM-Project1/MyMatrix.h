@@ -19,14 +19,14 @@ class MyMatrix
 		//--Function--
 		int rank() const;
 		MyMatrix trans() const;
-		//TODO: solve
+		MyMatrix solve(const MyMatrix&) const;
 		long double det() const;
 		MyMatrix inverse() const;
 		MyMatrix adj() const;
-		//TODO: eigen
-		//TODO: pm
+		void eigen(MyMatrix&, MyMatrix&) const;
+		void pm(MyMatrix&, MyMatrix&) const;
 		//TODO: leastSquare
-		//TODO: rref
+		void rref(MyMatrix&, MyMatrix&) const;
 		long double cofactor(int,int) const;
 
 

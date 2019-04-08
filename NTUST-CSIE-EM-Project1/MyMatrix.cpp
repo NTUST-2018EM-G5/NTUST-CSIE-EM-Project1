@@ -71,6 +71,13 @@ MyMatrix MyMatrix::trans() const
 	return result;
 }
 
+MyMatrix MyMatrix::solve(const MyMatrix& b) const
+{
+	MyMatrix ans;
+	//TODO: solve
+	return ans;
+}
+
 long double MyMatrix::det() const
 {
 	if (this->cols() != this->rows())
@@ -163,6 +170,21 @@ MyMatrix MyMatrix::adj() const
 		}
 	}
 	return result;
+}
+
+void MyMatrix::eigen(MyMatrix& v, MyMatrix& d) const
+{
+	//TODO: eigen
+}
+
+void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
+{
+	//TODO: pm
+}
+
+void MyMatrix::rref(MyMatrix& L, MyMatrix& U) const
+{
+	//TODO: rref
 }
 
 long double MyMatrix::cofactor(int row, int col) const
