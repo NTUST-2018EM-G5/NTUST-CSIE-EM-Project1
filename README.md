@@ -98,7 +98,7 @@ struct Vector
 ### Matrix Operation
 - [x] Matrix addition & subtraction (2%)
 - [x] Matrix Multiplication (2%)
-- [ ] Rank of Matrix (5%)
+- [x] Rank of Matrix (5%)
 - [x] Matrix Transpose (2%)
 - [x] Solve Linear System (10%)
 - [x] Determinants of Matrix (3%)

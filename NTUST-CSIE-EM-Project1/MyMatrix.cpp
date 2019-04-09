@@ -51,14 +51,51 @@ MyMatrix::MyMatrix(std::string name, std::vector<std::vector<long double>> data)
 
 int MyMatrix::rank() const
 {
-	if (this->rows() || this->cols())
+	if (!this->rows() || !this->cols())
 	{
 		return 0;
 	}
 	else
 	{
 		MyMatrix mat = *this;
-		//TODO: guass
+		int r = 0, c = 0;
+		while (r < mat.rows() && c < mat.cols()) 
+		{
+			//find pivot
+			bool flag = true;
+			while (c < mat.cols() && !mat.at(r, c))
+			{
+				for (int i = r + 1; i < mat.rows(); ++i) 
+				{
+					if (mat.at(i, c))
+					{
+						mat.Data.at(r).swap(mat.Data.at(i));
+						flag = false;
+						break;
+					}
+				}
+				if (flag)++c;
+				else break;
+			}
+
+			if (c >= mat.cols()) break;
+
+			long double pivot = mat.at(r, c);
+			for (int i = r + 1; i < mat.rows(); ++i) 
+			{
+				long double coef = mat.at(i, c);
+				for (int j = 0; j < mat.cols(); ++j)
+				{
+					mat.at(i, j) -= mat.at(r, j) * coef / pivot;
+					if (abs(mat.at(i, j)) < 0.000000001)
+					{
+						mat.at(i, j) = 0.0;
+					}
+				}
+			}
+			++r;
+			++c;
+		}
 		
 		int rank = this->rows();
 		bool allZero;
