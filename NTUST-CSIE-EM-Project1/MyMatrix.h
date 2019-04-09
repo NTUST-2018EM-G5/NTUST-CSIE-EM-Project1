@@ -30,7 +30,6 @@ class MyMatrix
 		long double cofactor(int,int) const;
 
 
-
 		//--Operator overloading--
 		MyMatrix operator+(const MyMatrix&);
 		MyMatrix operator-(const MyMatrix&);

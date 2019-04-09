@@ -830,7 +830,18 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		{
 			if (userCommand->Length == 3)
 			{
-				//TODO: solve
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyMatrix mat_a, mat_b;
+				if ((findMatrix(command1, mat_a) || queryMatrix(command1, mat_a)) && (findMatrix(command2, mat_b) || queryMatrix(command2, mat_b)))
+				{
+					System::String^ result = mat_a.solve(mat_b).PrintData("0.0000");
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
 			}
 			else
 			{

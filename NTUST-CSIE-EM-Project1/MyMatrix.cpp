@@ -51,11 +51,32 @@ MyMatrix::MyMatrix(std::string name, std::vector<std::vector<long double>> data)
 
 int MyMatrix::rank() const
 {
-	MyMatrix mat = *this;
-	int rank = this->rows();
-	//TODO: rank
-	
-	return rank;
+	if (this->rows() || this->cols())
+	{
+		return 0;
+	}
+	else
+	{
+		MyMatrix mat = *this;
+		//TODO: guass
+		
+		int rank = this->rows();
+		bool allZero;
+		for (int j = 0; j < mat.rows(); ++j)
+		{
+			allZero = true;
+			for (int k = 0; k < mat.cols(); ++k)
+			{
+				if (abs(mat.at(j, k)) > 0.000000001)
+				{
+					allZero = false;
+					break;
+				}
+			}
+			if (allZero)--rank;
+		}
+		return rank;
+	}
 }
 
 MyMatrix MyMatrix::trans() const
@@ -74,7 +95,7 @@ MyMatrix MyMatrix::trans() const
 MyMatrix MyMatrix::solve(const MyMatrix& b) const
 {
 	MyMatrix ans;
-	//TODO: solve
+	ans = this->inverse() * b;
 	return ans;
 }
 
@@ -209,6 +230,7 @@ long double MyMatrix::cofactor(int row, int col) const
 	return mat.det();
 }
 
+
 MyMatrix MyMatrix::operator+(const MyMatrix& b)
 {
 	if (this->rows() == b.rows() && this->cols() == b.cols())
@@ -257,30 +279,23 @@ MyMatrix MyMatrix::operator-(const MyMatrix& b)
 
 MyMatrix MyMatrix::operator*(const MyMatrix& b)
 {
-	if (this->rows() == b.cols()) 
+	int r = this->rows(), c = b.cols();
+	MyMatrix result(r, c);
+	long double sum;
+	for (int i = 0; i < r; ++i)
 	{
-		int r = this->rows(), c = this->cols();
-		MyMatrix result(r, c);
-		long double sum;
-		for (int i = 0; i < r; ++i)
+		for (int j = 0; j < c; ++j)
 		{
-			for (int j = 0; j < c; ++j)
+			for (int k = 0; k < r; ++k)
 			{
-				for (int k = 0; k < r; ++k)
-				{
-					sum += this->Data.at(i).at(k) * b.Data.at(k).at(j);
-				}
-				result.Data.at(i).at(j) = sum;
-				sum = 0;
+				sum += this->Data.at(i).at(k) * b.Data.at(k).at(j);
 			}
+			result.Data.at(i).at(j) = sum;
+			sum = 0;
 		}
+	}
 
-		return result;
-	}
-	else
-	{
-		throw std::string("Error: size illegal");
-	}
+	return result;
 }
 
 int MyMatrix::rows() const
