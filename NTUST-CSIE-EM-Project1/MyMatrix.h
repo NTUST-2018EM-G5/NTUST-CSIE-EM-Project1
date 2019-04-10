@@ -25,7 +25,7 @@ class MyMatrix
 		MyMatrix adj() const;
 		void eigen(MyMatrix&, MyMatrix&) const;
 		void pm(MyMatrix&, MyMatrix&) const;
-		//TODO: leastSquare
+		MyMatrix leastSquare(const MyMatrix&) const;
 		void rref(MyMatrix&, MyMatrix&) const;
 		long double cofactor(int,int) const;
 

@@ -933,6 +933,28 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				throw std::string("Error: Wrong command");
 			}
 		}
+		else if (userCommand[0] == "leastSquare")
+		{
+			if (userCommand->Length == 3)
+			{
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				std::string command2 = ToString_Sys2Std(userCommand[2]);
+				MyMatrix mat_a, mat_b;
+				if ((findMatrix(command1, mat_a) || queryMatrix(command1, mat_a)) && (findMatrix(command2, mat_b) || queryMatrix(command2, mat_b)))
+				{
+					System::String^ result = mat_a.leastSquare(mat_b).PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
+			}
+			else
+			{
+				throw std::string("Error: Wrong command");
+			}
+		}
 		else if (userCommand[0] == "rref")
 		{
 			if (userCommand->Length == 2)

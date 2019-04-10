@@ -240,6 +240,13 @@ void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
 	//TODO: pm
 }
 
+MyMatrix MyMatrix::leastSquare(const MyMatrix& b) const
+{
+	MyMatrix result;
+	result = (this->trans() * *this).inverse() * this->trans() * b;
+	return result;
+}
+
 void MyMatrix::rref(MyMatrix& L, MyMatrix& U) const
 {
 	//TODO: rref
