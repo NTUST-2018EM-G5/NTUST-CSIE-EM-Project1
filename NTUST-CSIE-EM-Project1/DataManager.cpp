@@ -927,6 +927,17 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			if (userCommand->Length == 2)
 			{
 				//TODO: pm
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					System::String^ result = mat_a.pm().PrintData();
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
 			}
 			else
 			{

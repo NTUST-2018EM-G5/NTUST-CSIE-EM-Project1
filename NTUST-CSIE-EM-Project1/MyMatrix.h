@@ -24,11 +24,10 @@ class MyMatrix
 		MyMatrix inverse() const;
 		MyMatrix adj() const;
 		void eigen(MyMatrix&, MyMatrix&) const;
-		void pm(MyMatrix&, MyMatrix&) const;
+		MyMatrix pm() const;
 		MyMatrix leastSquare(const MyMatrix&) const;
 		void rref(MyMatrix&, MyMatrix&) const;
 		long double cofactor(int,int) const;
-
 
 		//--Operator overloading--
 		MyMatrix operator+(const MyMatrix&);

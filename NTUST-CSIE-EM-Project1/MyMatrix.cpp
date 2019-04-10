@@ -1,5 +1,5 @@
 #include "MyMatrix.h"
-
+#include "MyVector.h"
 
 
 MyMatrix::MyMatrix()
@@ -235,9 +235,76 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& d) const
 	//TODO: eigen
 }
 
-void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
+MyMatrix MyMatrix::pm() const
 {
 	//TODO: pm
+	MyMatrix thismatrix = *this;
+	int colsize = thismatrix.Data.size();
+	MyMatrix result, temp(colsize,1);
+	long double tempnum,difference = 1;
+	long double thistime, lasttime;
+	temp.Data[0][0] = 1;
+	for (int i = 1; i < colsize; i++)
+	{
+		temp.Data[i][0] = 0;
+	}
+	bool flag = 0;
+	while (abs(difference) > 0.0000001)
+	{
+		temp = thismatrix * temp;
+		long double biggest = 0, comparebig = 0;
+		for (int i = 0; i < colsize; i++)
+		{
+			if (abs(temp.Data[i][0]) > comparebig)
+			{
+				comparebig = abs(temp.Data[i][0]);
+				biggest = temp.Data[i][0];
+			}
+		}
+		for (int i = 0; i < colsize; i++)
+		{
+			temp.Data[i][0] = temp.Data[i][0] / biggest;
+		}
+		if (flag)
+		{
+			lasttime = thistime;
+		}
+		thistime = biggest;
+		if (flag)
+		{
+			difference = thistime - lasttime;
+		}
+		flag = 1;
+	}
+	MyVector tempvec;
+	std::vector<long double> realtempvec;
+	for (int i = 0; i < colsize; i++)
+	{
+		realtempvec.push_back(temp.Data[i][0]);
+	}
+	tempvec.SetData(realtempvec);
+	tempvec = tempvec.normal();
+	realtempvec = tempvec.GetData();
+	if (realtempvec[0] < 0)
+	{
+		for (int i = 0; i < colsize; i++)
+		{
+			realtempvec[i] *= -1;
+		}
+	}
+	for (int i = 0; i < colsize; i++)
+	{
+		temp.Data.pop_back();
+	}
+	temp.Data.push_back(realtempvec);
+	realtempvec.clear();
+	realtempvec.push_back(thistime);
+	for (int i = 1; i < colsize; i++)
+	{
+		realtempvec.push_back(0);
+	}
+	temp.Data.push_back(realtempvec);
+	return temp;
 }
 
 MyMatrix MyMatrix::leastSquare(const MyMatrix& b) const
@@ -325,7 +392,7 @@ MyMatrix MyMatrix::operator*(const MyMatrix& b)
 {
 	int r = this->rows(), c = b.cols();
 	MyMatrix result(r, c);
-	long double sum;
+	long double sum = 0;
 	for (int i = 0; i < r; ++i)
 	{
 		for (int j = 0; j < c; ++j)
