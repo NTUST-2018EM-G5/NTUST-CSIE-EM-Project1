@@ -274,6 +274,51 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 		v.Data[0][1] = realtempvec[0];
 		v.Data[1][1] = realtempvec[1];
 	}
+	else if (thismatrix.Data.size() == 3)
+	{
+		v = thismatrix;
+		Md = thismatrix;
+		long double a, b, c, d, ei, f, g, h, ii,BB,CC,DD, lambda, lambda2,lambda3;
+		a = thismatrix.Data[0][0];
+		b = thismatrix.Data[0][1];
+		c = thismatrix.Data[0][2];
+		d = thismatrix.Data[1][0];
+		ei = thismatrix.Data[1][1];
+		f = thismatrix.Data[1][2];
+		g = thismatrix.Data[2][0];
+		h = thismatrix.Data[2][1];
+		ii = thismatrix.Data[2][2];
+		BB = -ii - a - ei;
+		CC = a * ii + ei * ii + a * ei - g * c - h * f - d * b;
+		DD = h * f * a + d * b * ii - a * ei * ii - d * h * c - g * b * f + g * c * ei;
+		long double b2 = BB * BB;
+		long double b3 = b2 * BB;
+		long double q = (3 * CC - b2) / 9;
+		long double q2 = q * q;
+		long double q3 = q2 * q;
+		long double r = -27 * DD + BB * (9 * CC - 2 * b2);
+		r /= 54;
+		long double r2 = r * r;
+		long double discriminant = q3 + r2;
+		long double s = r + sqrt(abs(discriminant));
+		long double t = r - sqrt(abs(discriminant));
+		//long double term1 = pow((-t + s) / 2, 1 / 3.0);
+		long double term1 = BB / 3;
+		long double dum1 = acos(r / sqrt(abs(q3)));
+		long double r13 = 2 * sqrt(abs(q));
+		lambda = (-term1 + r13 * cos(dum1 / 3));
+		lambda2 = (-term1 + r13 * cos((dum1 + 2 * M_PI) / 3));
+		lambda3 = (-term1 + r13 * cos((dum1 + 4 * M_PI) / 3));
+		Md.Data[0][0] = lambda;
+		Md.Data[1][1] = lambda2;
+		Md.Data[2][2] = lambda3;
+		Md.Data[0][1] = 0;
+		Md.Data[0][2] = 0;
+		Md.Data[1][0] = 0;
+		Md.Data[1][2] = 0;
+		Md.Data[2][0] = 0;
+		Md.Data[2][1] = 0;
+	}
 }
 
 void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
