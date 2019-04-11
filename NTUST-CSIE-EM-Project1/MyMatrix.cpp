@@ -297,13 +297,10 @@ void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
 		temp.Data.pop_back();
 	}
 	temp.Data.push_back(realtempvec);
+	v = temp;
 	realtempvec.clear();
 	realtempvec.push_back(thistime);
-	for (int i = 1; i < colsize; i++)
-	{
-		realtempvec.push_back(0);
-	}
-	temp.Data.push_back(realtempvec);
+	d.Data.push_back(realtempvec);
 	//return temp;
 }
 
