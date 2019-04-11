@@ -915,7 +915,20 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		{
 			if (userCommand->Length == 2)
 			{
-				//TODO: eigen
+				std::string command1 = ToString_Sys2Std(userCommand[1]);
+				MyMatrix mat_a;
+				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
+				{
+					MyMatrix v, d;
+					mat_a.eigen(v, d);
+					System::String^ result = "v = \r\n" + v.PrintData() + Environment::NewLine;
+					result += "d = \r\n" + d.PrintData() + Environment::NewLine;
+					return result;
+				}
+				else
+				{
+					throw std::string("Error: Matrix not found");
+				}
 			}
 			else
 			{
@@ -926,12 +939,14 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 		{
 			if (userCommand->Length == 2)
 			{
-				//TODO: pm
 				std::string command1 = ToString_Sys2Std(userCommand[1]);
 				MyMatrix mat_a;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.pm().PrintData();
+					MyMatrix v, d;
+					mat_a.pm(v, d);
+					System::String^ result = "v = \r\n" + v.PrintData() + Environment::NewLine;
+					result += "d = \r\n" + d.PrintData() + Environment::NewLine;
 					return result;
 				}
 				else

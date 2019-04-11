@@ -235,7 +235,7 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& d) const
 	//TODO: eigen
 }
 
-MyMatrix MyMatrix::pm() const
+void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
 {
 	//TODO: pm
 	MyMatrix thismatrix = *this;
@@ -304,7 +304,7 @@ MyMatrix MyMatrix::pm() const
 		realtempvec.push_back(0);
 	}
 	temp.Data.push_back(realtempvec);
-	return temp;
+	//return temp;
 }
 
 MyMatrix MyMatrix::leastSquare(const MyMatrix& b) const
