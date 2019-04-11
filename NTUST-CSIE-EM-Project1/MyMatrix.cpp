@@ -230,9 +230,50 @@ MyMatrix MyMatrix::adj() const
 	return result;
 }
 
-void MyMatrix::eigen(MyMatrix& v, MyMatrix& d) const
+void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 {
 	//TODO: eigen
+	MyMatrix thismatrix = *this;
+	if (thismatrix.Data.size() == 2)
+	{
+		v = thismatrix;
+		Md = thismatrix;
+		long double a, b, c, d,lambda,lambda2;
+		a = thismatrix.Data[0][0];
+		b = thismatrix.Data[0][1];
+		c = thismatrix.Data[1][0];
+		d = thismatrix.Data[1][1];
+		lambda = pow(a + d, 2) - (4 * ((a*d)-(c*b)));
+		lambda = sqrt(lambda);
+		lambda2 = (a + d) - lambda;
+		lambda = (a + d) + lambda;
+		lambda = lambda / 2;
+		lambda2 = lambda2 / 2;
+		Md.Data[0][0] = lambda;
+		Md.Data[1][1] = lambda2;
+		Md.Data[0][1] = 0;
+		Md.Data[1][0] = 0;
+		thismatrix.Data[0][0] -= lambda;
+		MyVector temp;
+		std::vector<long double> realtempvec;
+		realtempvec.push_back(-thismatrix.Data[0][1]);
+		realtempvec.push_back(thismatrix.Data[0][0]);
+		temp.SetData(realtempvec);
+		temp = temp.normal();
+		realtempvec = temp.GetData();
+		v.Data[0][0] = realtempvec[0];
+		v.Data[1][0] = realtempvec[1];
+		thismatrix = *this;
+		thismatrix.Data[0][0] -= lambda2;
+		realtempvec.clear();
+		realtempvec.push_back(-thismatrix.Data[0][1]);
+		realtempvec.push_back(thismatrix.Data[0][0]);
+		temp.SetData(realtempvec);
+		temp = temp.normal();
+		realtempvec = temp.GetData();
+		v.Data[0][1] = realtempvec[0];
+		v.Data[1][1] = realtempvec[1];
+	}
 }
 
 void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
