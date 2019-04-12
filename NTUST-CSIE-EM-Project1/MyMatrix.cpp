@@ -319,11 +319,14 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 		Md.Data[2][0] = 0;
 		Md.Data[2][1] = 0;
 	}
+	else
+	{
+		throw std::string("Error: only support 2*2 and 3*3 matrix");
+	}
 }
 
 void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
 {
-	//TODO: pm
 	MyMatrix thismatrix = *this;
 	int colsize = thismatrix.Data.size();
 	MyMatrix result, temp(colsize,1);
@@ -387,7 +390,6 @@ void MyMatrix::pm(MyMatrix& v, MyMatrix& d) const
 	realtempvec.clear();
 	realtempvec.push_back(thistime);
 	d.Data.push_back(realtempvec);
-	//return temp;
 }
 
 MyMatrix MyMatrix::leastSquare(const MyMatrix& b) const
