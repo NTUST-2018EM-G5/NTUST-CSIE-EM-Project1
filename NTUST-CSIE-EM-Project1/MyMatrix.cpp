@@ -300,6 +300,10 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 		r /= 54;
 		long double r2 = r * r;
 		long double discriminant = q3 + r2;
+		/*if (discriminant < 0)
+		{
+			throw std::string("Error:");
+		}*/
 		long double s = r + sqrt(abs(discriminant));
 		long double t = r - sqrt(abs(discriminant));
 		//long double term1 = pow((-t + s) / 2, 1 / 3.0);
@@ -318,6 +322,222 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 		Md.Data[1][2] = 0;
 		Md.Data[2][0] = 0;
 		Md.Data[2][1] = 0;
+
+		thismatrix.Data[0][0] -= lambda;
+		thismatrix.Data[1][1] -= lambda;
+		thismatrix.Data[2][2] -= lambda;
+		long double scalar = 1.0;
+		for (int i = 0; i < thismatrix.rows(); ++i)
+		{
+			if (thismatrix.at(i, i) == 0)
+			{
+				bool flag = false;
+				for (int j = i + 1; j < thismatrix.rows(); ++j)
+				{
+					if (thismatrix.at(j, i) != 0)
+					{
+						thismatrix.Data.at(i).swap(thismatrix.Data.at(j));
+						flag = true;
+						scalar *= -1.0;
+						break;
+					}
+				}
+				if (!flag) continue;
+			}
+
+			long double coef = thismatrix.at(i, i);
+			scalar *= coef;
+			for (int j = i + 1; j < thismatrix.rows(); ++j)
+			{
+				if (thismatrix.Data[j][i] != 0)
+				{
+					long double coef2 = thismatrix.Data[j][i] / thismatrix.Data[i][i];
+					for (int k = i; k < thismatrix.cols(); ++k)
+					{
+						thismatrix.at(j, k) -= thismatrix.at(i, k)*coef2;
+						if (abs(thismatrix.at(j, k)) < 0.00000001)
+							thismatrix.at(j, k) = 0;
+					}
+				}
+			}
+		}
+		MyVector temp;
+		std::vector<long double> realtempvec;
+		if (thismatrix.Data[0][0] == 0)
+		{
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[1][1] == 0)
+		{
+			realtempvec.push_back(-thismatrix.Data[0][1] / thismatrix.Data[0][0]);
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[2][2] == 0)
+		{
+			realtempvec.push_back(((thismatrix.Data[0][2] * -1) + (thismatrix.Data[0][1] * -1 * (-thismatrix.Data[1][2] / thismatrix.Data[1][1]))) / thismatrix.Data[0][0]);
+			realtempvec.push_back(-thismatrix.Data[1][2] / thismatrix.Data[1][1]);
+			realtempvec.push_back(1);
+		}
+		else
+		{
+			realtempvec.push_back((-thismatrix.Data[0][1] * ((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]) - (thismatrix.Data[0][2] * thismatrix.Data[2][2])) / thismatrix.Data[0][0]);
+			realtempvec.push_back((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]);
+			realtempvec.push_back(thismatrix.Data[2][2]);
+		}
+		temp.SetData(realtempvec);
+		temp = temp.normal();
+		realtempvec = temp.GetData();
+		for (int i = 0; i < realtempvec.size(); i++)
+		{
+			v.Data[i][0] = realtempvec[i];
+		}
+
+		thismatrix = *this;
+		thismatrix.Data[0][0] -= lambda2;
+		thismatrix.Data[1][1] -= lambda2;
+		thismatrix.Data[2][2] -= lambda2;
+		scalar = 1.0;
+		for (int i = 0; i < thismatrix.rows(); ++i)
+		{
+			if (thismatrix.at(i, i) == 0)
+			{
+				bool flag = false;
+				for (int j = i + 1; j < thismatrix.rows(); ++j)
+				{
+					if (thismatrix.at(j, i) != 0)
+					{
+						thismatrix.Data.at(i).swap(thismatrix.Data.at(j));
+						flag = true;
+						scalar *= -1.0;
+						break;
+					}
+				}
+				if (!flag) continue;
+			}
+
+			long double coef = thismatrix.at(i, i);
+			scalar *= coef;
+			for (int j = i + 1; j < thismatrix.rows(); ++j)
+			{
+				if (thismatrix.Data[j][i] != 0)
+				{
+					long double coef2 = thismatrix.Data[j][i] / thismatrix.Data[i][i];
+					for (int k = i; k < thismatrix.cols(); ++k)
+					{
+						thismatrix.at(j, k) -= thismatrix.at(i, k)*coef2;
+						if (abs(thismatrix.at(j,k)) < 0.00000001)
+							thismatrix.at(j, k) = 0;
+					}
+				}
+			}
+		}
+		realtempvec.clear();
+		if (thismatrix.Data[0][0] == 0)
+		{
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[1][1] == 0)
+		{
+			realtempvec.push_back(-thismatrix.Data[0][1] / thismatrix.Data[0][0]);
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[2][2] == 0)
+		{
+			realtempvec.push_back(((thismatrix.Data[0][2] * -1) + (thismatrix.Data[0][1] * -1 * (-thismatrix.Data[1][2] / thismatrix.Data[1][1]))) / thismatrix.Data[0][0]);
+			realtempvec.push_back(-thismatrix.Data[1][2] / thismatrix.Data[1][1]);
+			realtempvec.push_back(1);
+		}
+		else
+		{
+			realtempvec.push_back((-thismatrix.Data[0][1] * ((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]) - (thismatrix.Data[0][2] * thismatrix.Data[2][2])) / thismatrix.Data[0][0]);
+			realtempvec.push_back((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]);
+			realtempvec.push_back(thismatrix.Data[2][2]);
+		}
+		temp.SetData(realtempvec);
+		temp = temp.normal();
+		realtempvec = temp.GetData();
+		for (int i = 0; i < realtempvec.size(); i++)
+		{
+			v.Data[i][1] = realtempvec[i];
+		}
+
+		thismatrix = *this;
+		thismatrix.Data[0][0] -= lambda3;
+		thismatrix.Data[1][1] -= lambda3;
+		thismatrix.Data[2][2] -= lambda3;
+		scalar = 1.0;
+		for (int i = 0; i < thismatrix.rows(); ++i)
+		{
+			if (thismatrix.at(i, i) == 0)
+			{
+				bool flag = false;
+				for (int j = i + 1; j < thismatrix.rows(); ++j)
+				{
+					if (thismatrix.at(j, i) != 0)
+					{
+						thismatrix.Data.at(i).swap(thismatrix.Data.at(j));
+						flag = true;
+						scalar *= -1.0;
+						break;
+					}
+				}
+				if (!flag) continue;
+			}
+
+			long double coef = thismatrix.at(i, i);
+			scalar *= coef;
+			for (int j = i + 1; j < thismatrix.rows(); ++j)
+			{
+				if (thismatrix.Data[j][i] != 0)
+				{
+					long double coef2 = thismatrix.Data[j][i] / thismatrix.Data[i][i];
+					for (int k = i; k < thismatrix.cols(); ++k)
+					{
+						thismatrix.at(j, k) -= thismatrix.at(i, k)*coef2;
+						if (abs(thismatrix.at(j, k)) < 0.00000001)
+							thismatrix.at(j, k) = 0;
+					}
+				}
+			}
+		}
+		realtempvec.clear();
+		if (thismatrix.Data[0][0] == 0)
+		{
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[1][1] == 0)
+		{
+			realtempvec.push_back(-thismatrix.Data[0][1] / thismatrix.Data[0][0]);
+			realtempvec.push_back(1);
+			realtempvec.push_back(0);
+		}
+		else if (thismatrix.Data[2][2] == 0)
+		{
+			realtempvec.push_back(((thismatrix.Data[0][2] * -1) + (thismatrix.Data[0][1] * -1 * (-thismatrix.Data[1][2] / thismatrix.Data[1][1]))) / thismatrix.Data[0][0]);
+			realtempvec.push_back(-thismatrix.Data[1][2] / thismatrix.Data[1][1]);
+			realtempvec.push_back(1);
+		}
+		else
+		{
+			realtempvec.push_back((-thismatrix.Data[0][1] * ((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]) - (thismatrix.Data[0][2] * thismatrix.Data[2][2])) / thismatrix.Data[0][0]);
+			realtempvec.push_back((-thismatrix.Data[1][2] * thismatrix.Data[2][2]) / thismatrix.Data[1][1]);
+			realtempvec.push_back(thismatrix.Data[2][2]);
+		}
+		temp.SetData(realtempvec);
+		temp = temp.normal();
+		realtempvec = temp.GetData();
+		for (int i = 0; i < realtempvec.size(); i++)
+		{
+			v.Data[i][2] = realtempvec[i];
+		}
 	}
 	else
 	{
