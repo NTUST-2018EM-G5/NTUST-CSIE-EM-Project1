@@ -792,7 +792,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a, mat_b;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.rank() + Environment::NewLine;
+					System::String^ result = mat_a.rank() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -813,7 +813,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a, mat_b;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.trans().PrintData();
+					System::String^ result = mat_a.trans().PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -835,7 +835,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a, mat_b;
 				if ((findMatrix(command1, mat_a) || queryMatrix(command1, mat_a)) && (findMatrix(command2, mat_b) || queryMatrix(command2, mat_b)))
 				{
-					System::String^ result = mat_a.solve(mat_b).PrintData("0.0000");
+					System::String^ result = mat_a.solve(mat_b).PrintData("0.0000") + Environment::NewLine;
 					return result;
 				}
 				else
@@ -856,7 +856,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.det() + Environment::NewLine;
+					System::String^ result = mat_a.det() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -877,7 +877,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.inverse().PrintData();
+					System::String^ result = mat_a.inverse().PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -898,7 +898,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a;
 				if (findMatrix(command1, mat_a) || queryMatrix(command1, mat_a))
 				{
-					System::String^ result = mat_a.adj().PrintData();
+					System::String^ result = mat_a.adj().PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -968,7 +968,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyMatrix mat_a, mat_b;
 				if ((findMatrix(command1, mat_a) || queryMatrix(command1, mat_a)) && (findMatrix(command2, mat_b) || queryMatrix(command2, mat_b)))
 				{
-					System::String^ result = mat_a.leastSquare(mat_b).PrintData();
+					System::String^ result = mat_a.leastSquare(mat_b).PrintData() + Environment::NewLine;
 					return result;
 				}
 				else

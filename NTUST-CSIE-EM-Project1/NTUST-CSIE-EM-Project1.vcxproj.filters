@@ -58,5 +58,8 @@
     <EmbeddedResource Include="MyForm.resx">
       <Filter>資源檔</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="HintForm.resx">
+      <Filter>資源檔</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
