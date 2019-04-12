@@ -390,7 +390,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 	cli::array<System::String^> ^userCommand = command->Split(' ');
 	try
 	{
-		//輸入Vector指令
+		//輸入指令
 		if (userCommand[0] == "print")
 		{
 			if (this->Status == 1) //VECTOR
@@ -411,7 +411,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 						for (unsigned int j = 0; j < vec.GetSize(); j++)
 						{
 							outputTemp += vec[j].ToString();
-							if (j != vec.GetSize() - 1)outputTemp += ",";
+							if (j != vec.GetSize() - 1)outputTemp += ", ";
 						}
 						//將輸出格式存入暫存，並且換行
 						outputTemp += "]" + Environment::NewLine;
@@ -430,7 +430,39 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			}
 			else if (this->Status == 2) //MATRIX
 			{
-				//TODO: print matrix
+				if (userCommand->Length == 2)
+				{
+					//定義輸出暫存
+					String^ outputTemp = "";
+
+					//從矩陣資料中找出對應變數
+					MyMatrix mat;
+					//若變數名稱與指令變數名稱符合
+					if (findMatrix(ToString_Sys2Std(userCommand[1]), mat))
+					{
+						//將輸出資料存入暫存
+						for (int j = 0; j < mat.rows(); j++)
+						{
+							for (int k = 0; k < mat.cols(); k++)
+							{
+								outputTemp += mat.at(j,k).ToString();
+								if (k != mat.cols() - 1)outputTemp += ", ";
+							}
+							if (j != mat.rows() - 1)outputTemp += Environment::NewLine;
+						}
+						outputTemp += Environment::NewLine;
+						//輸出暫存資訊
+						result += gcnew String(mat.GetName().c_str()) + " = \r\n" + outputTemp + Environment::NewLine;
+					}
+					else
+					{
+						throw std::string("Error: Vector not found");
+					}
+				}
+				else
+				{
+					throw std::string("Error: Wrong command");
+				}
 			}
 			
 		}
@@ -444,7 +476,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					MyVector vec_a;
 					if (queryVector(command1, vec_a))
 					{
-						System::String^ result = vec_a.PrintData();
+						System::String^ result = vec_a.PrintData() + Environment::NewLine;
 
 						return result;
 					}
@@ -466,7 +498,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					MyMatrix mat_a;
 					if (queryMatrix(command1, mat_a))
 					{
-						System::String^ result = mat_a.PrintData();
+						System::String^ result = mat_a.PrintData() + Environment::NewLine;
 
 						return result;
 					}
@@ -482,6 +514,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 			}
 			
 		}
+		//---vector指令---
 		else if (userCommand[0] == "dot")
 		{
 			if (userCommand->Length == 3)
@@ -491,7 +524,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.dot(vec_b).ToString() + Environment::NewLine;
+					System::String^ result = vec_a.dot(vec_b).ToString() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -512,7 +545,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a;
 				if (findVector(command1, vec_a) || queryVector(command1, vec_a))
 				{
-					System::String^ result = vec_a.norm() + Environment::NewLine;
+					System::String^ result = vec_a.norm() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -533,7 +566,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a;
 				if (findVector(command1, vec_a) || queryVector(command1, vec_a))
 				{
-					System::String^ result = vec_a.normal().PrintData("0.000000000000000");
+					System::String^ result = vec_a.normal().PrintData("0.000000000000000") + Environment::NewLine;
 					return result;
 				}
 				else
@@ -555,7 +588,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.cross(vec_b).PrintData();
+					System::String^ result = vec_a.cross(vec_b).PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -577,7 +610,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.com(vec_b).ToString() + Environment::NewLine;
+					System::String^ result = vec_a.com(vec_b).ToString() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -599,7 +632,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.proj(vec_b).PrintData();
+					System::String^ result = vec_a.proj(vec_b).PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -621,7 +654,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.area(vec_b).ToString() + Environment::NewLine;
+					System::String^ result = vec_a.area(vec_b).ToString() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -643,7 +676,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = (vec_a.isParallel(vec_b) ? "Yes" : "No") + Environment::NewLine;
+					System::String^ result = (vec_a.isParallel(vec_b) ? "Yes" : "No") + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -665,7 +698,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = (vec_a.isOrthogonal(vec_b) ? "Yes" : "No") + Environment::NewLine;
+					System::String^ result = (vec_a.isOrthogonal(vec_b) ? "Yes" : "No") + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -687,7 +720,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.angle(vec_b).ToString() + Environment::NewLine;
+					System::String^ result = vec_a.angle(vec_b).ToString() + Environment::NewLine + Environment::NewLine;
 					return result;
 				}
 				else
@@ -709,7 +742,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				MyVector vec_a, vec_b;
 				if ((findVector(command1, vec_a) || queryVector(command1, vec_a)) && (findVector(command2, vec_b) || queryVector(command2, vec_b)))
 				{
-					System::String^ result = vec_a.pN(vec_b).PrintData();
+					System::String^ result = vec_a.pN(vec_b).PrintData() + Environment::NewLine;
 					return result;
 				}
 				else
@@ -744,7 +777,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 					}
 				}
 				
-				System::String^ result = isLI(vec) ? "Yes\r\n" : "No\r\n";
+				System::String^ result = (isLI(vec) ? "Yes\r\n" : "No\r\n") + Environment::NewLine;
 				return result;
 			}
 			else
@@ -776,7 +809,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				}
 				ans = ob(vec);
 				System::String^ result;
-				result = PrintMultipleVector(ans);
+				result = PrintMultipleVector(ans) + Environment::NewLine;
 				return result;
 			}
 			else
@@ -784,6 +817,7 @@ System::String^ DataManager::CommandEvent(System::String^ command)
 				throw std::string("Error: Wrong command");
 			}
 		}
+		//---matrix指令---
 		else if (userCommand[0] == "rank")
 		{
 			if (userCommand->Length == 2)
