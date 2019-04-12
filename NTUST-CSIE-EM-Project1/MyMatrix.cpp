@@ -234,7 +234,7 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 {
 	//TODO: eigen
 	MyMatrix thismatrix = *this;
-	if (thismatrix.Data.size() == 2)
+	if (thismatrix.rows() == 2 && thismatrix.cols() == 2)
 	{
 		v = thismatrix;
 		Md = thismatrix;
@@ -274,7 +274,7 @@ void MyMatrix::eigen(MyMatrix& v, MyMatrix& Md) const
 		v.Data[0][1] = realtempvec[0];
 		v.Data[1][1] = realtempvec[1];
 	}
-	else if (thismatrix.Data.size() == 3)
+	else if (thismatrix.rows() == 3 && thismatrix.cols() == 3)
 	{
 		v = thismatrix;
 		Md = thismatrix;
