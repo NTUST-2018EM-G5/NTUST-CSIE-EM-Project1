@@ -104,7 +104,7 @@ struct Vector
 - [x] Determinants of Matrix (3%)
 - [x] Inverse Matrix (6%)
 - [x] Adjoint of Matrix (4%)
-- [ ] Eigen Vector and Eigen Value (10%) (all eigen vector and eigen value)
+- [x] Eigen Vector and Eigen Value (10%) (all eigen vector and eigen value)
 - [x] Power Method of Eigen value (10%)
 - [x] Method of Least Square (6%)
 
